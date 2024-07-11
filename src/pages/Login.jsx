@@ -1,60 +1,35 @@
-import React, {useState} from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import "../styles/Login.css"
+import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Login = () => {
-    const [login, setLogin] = useState(true)
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (login) {
-            // console.log()
-        } else {
-
-        }
-    }
-
     return (
-        <div className='loginPage'>
-            <form>
-                {login ?
-                    (<>
-                    <h1>Login</h1>
-                    <div className="username">
-                        <label htmlFor="">Username:</label>
-                        <input type="text" placeholder='Username' />
-                    </div>
-                    <div className="password">
-                        <label htmlFor="" className="pass">Password:</label>
-                        <input type="password" placeholder='Password' />
-                    </div>
-                    <a href="">Forgot password?</a>
-                    <p>You don't have an account yet? <button type='button' onClick={() => setLogin(false)}>Sign up here</button></p>
-                    <button type="submit" className="loginBtn">Login</button>
-                    <p>If you want to organize a copetition? <button type="button">Click here</button></p>
-                    </>)
-                :
-                    (<>
-                    <h1>Signup</h1>
-                    <div className="username">
-                        <label htmlFor="">Username:</label>
-                        <input type="text" placeholder='Username' />
-                    </div>
-                    <div className="email">
-                        <label htmlFor="" className="email">Email:</label>
-                        <input type="email" placeholder="Email" />
-                    </div>
-                    <div className="password">
-                        <label htmlFor="" className="pass">Password:</label>
-                        <input type="password" placeholder='Password' />
-                    </div>
-                    <div className="password">
-                        <label htmlFor="" className="pass">Confirm Password:</label>
-                        <input type="password" placeholder='Password' />
-                    </div>
-                    <p>If you had an account <button type='button' onClick={() => setLogin(true)}>Login here</button></p>
-                    <button type="submit" className="loginBtn">Signup</button>
-                    </>)
-                }
+        <div className='w-full h-screen flex items-center justify-center'>
+            <form className='formlog w-fit h-fit flex items-center justify-center flex-col rounded-xl p-8'>
+                <div className='py-2.5'>
+                        <h1>Login</h1>
+                </div>
+                <div className="username py-2.5 flex flex-row items-center">
+                    <label htmlFor="" className='w-24 px-2.5'><p>Email:</p></label>
+                    <input type="text" placeholder='Email' className='input rounded-md w-40 h-10 px-2.5' required />
+                </div>
+                <div className="password py-2.5 flex flex-row items-center">
+                <label htmlFor="" className="pass w-24 px-2.5"><p>Password:</p></label>
+                <input type="password" placeholder='Password' className='input rounded-md w-40 h-10 px-2.5' required />
+                </div>
+                <div className='py-2.5'>
+                    <a href="#">Forgot password?</a>
+                </div>
+                <div className='py-2.5'>
+                    <p>You don't have an account yet? <Link to={'/Register'}>Sign up here</Link></p>
+                </div>
+                <div className="loginBtn py-2.5">
+                        <button type="submit" className="loginBtn">Login</button>
+                </div>
+                <div className="py-2.5">
+                    <p className=''>If you want to organize a copetition? <button type="button">Click here</button></p>
+                </div>
             </form>
         </div>
     )
