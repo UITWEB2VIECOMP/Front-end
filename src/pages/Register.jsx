@@ -1,115 +1,146 @@
-import React, { useState, useRef, useEffect } from 'react'
-import "../styles/Register.css"
-import { Link } from 'react-router-dom'
-import { FaCircleCheck, FaRegCircleCheck  } from 'react-icons/fa6'
-
-const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
+import '../styles/Register.css'
 
 const Register = () => {
-    const emailRef = useRef()
-    const errRef = useRef()
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+    });
+    const [err, setErr] = useState('');
+    const [success, setSuccess] = useState('');
+    const [loading, setLoading] = useState(false);
+    const history = useHistory()
 
-    const [email, setEmail] = useState('')
-    const [validEmail, setValidEmail] = useState(false)
-    const [emailFocus, setEmailFocus] = useState(false)
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
 
-    const [pwd, setPwd] = useState()
-    const [validPwd, setValidPwd] = useState(false)
-    const [pwdFocus, setPwdFocus] = useState(false)
+    const axiosUrl = axios.create({
+        baseURL: 'http://localhost:5000'
+    })
 
-    const [confirmPwd, setConfirmPwd] = useState('')
-    const [validConfirm, setvalidConfirm] = useState(false)
-    const [confirmFocus, setconfirmFocus] = useState(false)
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setLoading(true)
 
-    const [errMsg, setErrMsg] = useState('')
-    const [success, setSuccess] = useState(false)
-
-    useEffect(() => (
-        emailRef.current.focus()
-    ), [])
-
-    useEffect(() => {
-        const result = EMAIL_REGEX.test(email)
-        console.log(result)
-        console.log(email)
-        setValidEmail(email)
-    }, [email])
-
-    useEffect(() => {
-        const result = PWD_REGEX.test(pwd)
-        console.log(result)
-        console.log(pwd)
-        setValidPwd(pwd)
-        const match = pwd === confirmPwd
-        setvalidConfirm(match)
-    }, [pwd, confirmPwd])
+        try {
+            const res = await axiosUrl.post('/api/register', formData)
+            console.log('Response:', res)
+            setSuccess(res.data.message)
+            setErr('')
+            history.push('/')
+        } catch (err) {
+            console.error('Registration error:', err)
+            setErr(err.response?.data?.message || 'An error occurred')
+            setSuccess('')
+        } finally {
+            setLoading(false)
+        }
+    }
     
-    useEffect(() => {
-        setErrMsg('')
-    }, [email, pwd, confirmPwd])
 
     return (
         <div className='w-full h-screen flex items-center justify-center'>
-            <p ref={errRef} aria-live='assertive' className={errMsg ? 'errmsg' : 'offscreen'}></p>
-            <form className='formlog w-fit h-fit flex items-center justify-center flex-col rounded-xl p-8'>
+            <form className='formlog w-fit h-fit flex items-center justify-center flex-col rounded-xl p-8' onSubmit={handleSubmit}>
                 <div className='py-2.5'>
                     <h1>Signup</h1>
                 </div>
+                {err && <div className="error">{err}</div>}
+                {success && <div className="success">{success}</div>}
                 <div className='infomation py-2.5 flex flex-row items-center'>
                     <div className='name px-2.5 flex flex-col items-center'>
-                        <label htmlFor="" className='w-30 px-2.5'>First name:</label>
-                        <input type="text" placeholder='Firstname' className='input rounded-md w-40 h-10 px-2.5' required />
+                        <label htmlFor="firstName" className='w-30 px-2.5'>First name:</label>
+                        <input 
+                            type="text"
+                            name='firstName'
+                            placeholder='Firstname' 
+                            className='input rounded-md w-40 h-10 px-2.5' 
+                            value={formData.firstName}
+                            onChange={handleChange}
+                            required 
+                        />
                     </div>
                     <div className='name px-2.5 flex flex-col items-center'>
-                        <label htmlFor="" className='w-30 px-2.5'>Last name:</label>
-                        <input type="text" placeholder='Lastname' className='input rounded-md w-40 h-10 px-2.5' required />
+                        <label htmlFor="lastName" className='w-30 px-2.5'>Last name:</label>
+                        <input 
+                            type="text"
+                            name='lastName'
+                            placeholder='Lastname' 
+                            className='input rounded-md w-40 h-10 px-2.5' 
+                            value={formData.lastName}
+                            onChange={handleChange}
+                            required 
+                        />
                     </div>
                 </div>
                 <div className="DOB py-2.5 flex flex-row items-center">
-                    <label htmlFor="" className='w-40 px-2.5'>Date of Birth:</label>
-                    <input type="date" className='input rounded-md w-40 h-10 px-2.5' required />
+                    <label htmlFor="dateOfBirth" className='w-40 px-2.5'>Date of Birth:</label>
+                    <input 
+                        type="date" 
+                        name='dateOfBirth'
+                        className='input rounded-md w-48 h-10 px-2.5'
+                        value={formData.dateOfBirth}
+                        onChange={handleChange}
+                        required 
+                    />
                 </div>
                 <div className="email py-2.5 flex flex-row items-center">
-                    <label htmlFor="" className="w-40 px-2.5">
-                        Email:
-                        <span></span>
-                    </label>
+                    <label htmlFor="email" className="w-40 px-2.5">Email:</label>
                     <input 
-                        type="email" 
-                        id='email'
-                        ref={useRef}
+                        type="email"
+                        name='email'
                         placeholder="Email" 
-                        className='input rounded-md w-40 h-10 px-2.5'
+                        className='input rounded-md w-48 h-10 px-2.5'
+                        value={formData.email}
+                        onChange={handleChange}
                         required
-                        autoComplete='off'
-                        onChange={(e) => {e.target.value}}
-                        onFocus={() => setEmailFocus(true)}
-                        onblur={() => setEmailFocus(false)}
-                        aria-invalid={validEmail ? "false" : "true"}
-                        aria-describedby='uidnote'
                     />
-                    <p id='uidnote' className={emailFocus && email && !validEmail ? 'instrucstions' : 'offscreen'}>
-                        abcde
-                    </p>
                 </div>
                 <div className="password py-2.5 flex flex-row items-center">
-                    <label htmlFor="" className="w-40 px-2.5">Password:</label>
-                    <input type="password" placeholder='Password' className='input rounded-md w-40 h-10 px-2.5' id='pass' required />
+                    <label htmlFor="password" className="w-40 px-2.5">Password:</label>
+                    <input 
+                        type="password"
+                        name='password'
+                        placeholder='Password' 
+                        className='input rounded-md w-48 h-10 px-2.5' 
+                        value={formData.password}
+                        onChange={handleChange}
+                        required 
+                    />
                 </div>
                 <div className="password py-2.5 flex flex-row items-center">
-                    <label htmlFor="" className="w-40 px-2.5">Confirm Password:</label>
-                    <input type="password" placeholder='Password' className='input rounded-md w-40 h-10 px-2.5' id='confirmPass' required />
+                    <label htmlFor="confirmPassword" className="w-40 px-2.5">Confirm Password:</label>
+                    <input 
+                        type="password"
+                        name='confirmPassword'
+                        placeholder='Confirm Password' 
+                        className='input rounded-md w-48 h-10 px-2.5' 
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        required 
+                    />
                 </div>
                 <div className='py-2.5'>
-                    <p>If you had an account <Link to={'/'}>Login here</Link></p>
+                    <p>If you already have an account, <Link to={'/'}>Login here</Link></p>
                 </div>
                 <div>
-                    <button type="submit" className="loginBtn" id='btn'>Signup</button>
+                    <button type="submit" className="loginBtn" disabled={loading}>
+                        {loading ? 'Signing up...' : 'Signup'}
+                    </button>
                 </div>
             </form>
         </div>
-    )
-}
+    );
+};
 
 export default Register
