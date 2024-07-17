@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import "../styles/Login.css";
 
@@ -10,7 +10,7 @@ const Login = () => {
     });
     const [err, setErr] = useState('');
     const [loading, setLoading] = useState(false);
-    const history = useHistory();
+    const [loggedIn, setLoggedIn] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -20,8 +20,15 @@ const Login = () => {
         }));
     };
 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setLoggedIn(true);
+        }
+    }, []);
+
     const axiosUrl = axios.create({
-        baseURL: 'http://localhost:5000'
+        baseURL: 'https://api-74ym.onrender.com'
     });
 
     const handleSubmit = async (e) => {
@@ -29,14 +36,14 @@ const Login = () => {
         setLoading(true);
 
         try {
-            const res = await axiosUrl.post('/api/login', formData);
+            const res = await axiosUrl.post('/api/auth/login', formData);
             console.log('Response: ', res);
             const { token, message } = res.data;
 
             localStorage.setItem('token', token);
             setErr('');
-            alert(message);
-            history.push('/Main'); // Redirect to the main page after successful login
+            // alert(message);
+            setLoggedIn(true); // Set loggedIn state to true after successful login
         } catch (err) {
             console.log('Login error: ', err);
             setErr(err.response?.data?.message || 'An error occurred');
@@ -45,11 +52,16 @@ const Login = () => {
         }
     };
 
+    // If loggedIn is true, redirect to '/'
+    if (loggedIn) {
+        return <Navigate to='/' />;
+    }
+
     return (
         <div className='w-full h-screen flex items-center justify-center'>
             <form className='formlog w-fit h-fit flex items-center justify-center flex-col rounded-xl p-8' onSubmit={handleSubmit}>
                 <div className='py-2.5'>
-                    <h1>Login</h1>
+                    <h1 className='text-2xl font-bold'>Login</h1>
                 </div>
                 {err && <div className="error">{err}</div>}
                 <div className="username py-2.5 flex flex-row items-center">
@@ -77,7 +89,7 @@ const Login = () => {
                     />
                 </div>
                 <div className='py-2.5'>
-                    <p><Link to='#'>Forgot password?</Link></p>
+                    <p><Link to='/forgot'>Forgot password?</Link></p>
                 </div>
                 <div className='py-2.5'>
                     <p>You don't have an account yet? <Link to={'/register'}>Sign up here</Link></p>

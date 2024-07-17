@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Link, useHistory } from 'react-router-dom';
 import '../styles/Register.css'
 
 const Register = () => {
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        dateOfBirth: '',
+        firstname: '',
+        lastname: '',
+        DOB: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        passwordConfirm: ''
     });
     const [err, setErr] = useState('');
     const [success, setSuccess] = useState('');
     const [loading, setLoading] = useState(false);
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,7 +26,7 @@ const Register = () => {
     };
 
     const axiosUrl = axios.create({
-        baseURL: 'http://localhost:5000'
+        baseURL: 'https://api-74ym.onrender.com'
     })
 
     const handleSubmit = async (e) => {
@@ -34,11 +34,11 @@ const Register = () => {
         setLoading(true)
 
         try {
-            const res = await axiosUrl.post('/api/register', formData)
+            const res = await axiosUrl.post('/api/auth/register', formData)
             console.log('Response:', res)
             setSuccess(res.data.message)
             setErr('')
-            history.push('/')
+            navigate('/login')
         } catch (err) {
             console.error('Registration error:', err)
             setErr(err.response?.data?.message || 'An error occurred')
@@ -53,7 +53,7 @@ const Register = () => {
         <div className='w-full h-screen flex items-center justify-center'>
             <form className='formlog w-fit h-fit flex items-center justify-center flex-col rounded-xl p-8' onSubmit={handleSubmit}>
                 <div className='py-2.5'>
-                    <h1>Signup</h1>
+                    <h1 className='text-2xl font-bold'>Signup</h1>
                 </div>
                 {err && <div className="error">{err}</div>}
                 {success && <div className="success">{success}</div>}
@@ -62,10 +62,10 @@ const Register = () => {
                         <label htmlFor="firstName" className='w-30 px-2.5'>First name:</label>
                         <input 
                             type="text"
-                            name='firstName'
+                            name='firstname'
                             placeholder='Firstname' 
                             className='input rounded-md w-40 h-10 px-2.5' 
-                            value={formData.firstName}
+                            value={formData.firstname}
                             onChange={handleChange}
                             required 
                         />
@@ -74,10 +74,10 @@ const Register = () => {
                         <label htmlFor="lastName" className='w-30 px-2.5'>Last name:</label>
                         <input 
                             type="text"
-                            name='lastName'
+                            name='lastname'
                             placeholder='Lastname' 
                             className='input rounded-md w-40 h-10 px-2.5' 
-                            value={formData.lastName}
+                            value={formData.lastname}
                             onChange={handleChange}
                             required 
                         />
@@ -87,9 +87,9 @@ const Register = () => {
                     <label htmlFor="dateOfBirth" className='w-40 px-2.5'>Date of Birth:</label>
                     <input 
                         type="date" 
-                        name='dateOfBirth'
+                        name='DOB'
                         className='input rounded-md w-48 h-10 px-2.5'
-                        value={formData.dateOfBirth}
+                        value={formData.DOB}
                         onChange={handleChange}
                         required 
                     />
@@ -122,16 +122,16 @@ const Register = () => {
                     <label htmlFor="confirmPassword" className="w-40 px-2.5">Confirm Password:</label>
                     <input 
                         type="password"
-                        name='confirmPassword'
+                        name='passwordConfirm'
                         placeholder='Confirm Password' 
                         className='input rounded-md w-48 h-10 px-2.5' 
-                        value={formData.confirmPassword}
+                        value={formData.passwordConfirm}
                         onChange={handleChange}
                         required 
                     />
                 </div>
                 <div className='py-2.5'>
-                    <p>If you already have an account, <Link to={'/'}>Login here</Link></p>
+                    <p>If you already have an account, <Link to={'/login'}>Login here</Link></p>
                 </div>
                 <div>
                     <button type="submit" className="loginBtn" disabled={loading}>

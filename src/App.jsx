@@ -1,17 +1,25 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Login from './pages/Login'
-import Main from './pages/Main'
 import Register from './pages/Register'
+import VerifyEmail from './pages/VerifyEmail'
+import Main from './pages/Main'
+import Forgot from './pages/Forgot'
+import Resend from './pages/Resend'
+import Pass from './pages/Pass'
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Login />} />
-          <Route path='/Register' element={<Register />} />
-          <Route path='/Main' element={<Main />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/auth/:id/verify/:token' element={<VerifyEmail />} />
+          <Route path='/resend' element={<Resend />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/forgot' element={<Forgot />} />
+          <Route path='/auth/:id/resetpassword/:token' element={<Pass />} />
+          <Route path='/' element={<Main />} />
         </Routes>
       </BrowserRouter>
     </>
