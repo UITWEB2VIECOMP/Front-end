@@ -25,8 +25,8 @@ const Pass = ({ redirectAfterSuccess = true }) => {
     setLoading(true);
     try {
       const response = await axiosUrl.post(`/api/auth/${id}/resetpassword/${token}`, {
-        new_password: new_password, // Adjust to match backend
-        c_new_password: c_new_password // Adjust to match backend
+        new_password: new_password,
+        c_new_password: c_new_password 
       });
       setMessage(response.data.message);
       setError('');
