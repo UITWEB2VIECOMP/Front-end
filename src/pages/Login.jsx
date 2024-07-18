@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axiosUrl from '../../AxiosConfig';
+import axiosUrl from '../../AxiosConfig'; // Ensure this path is correct
 import "../styles/Login.css";
 
 const Login = () => {
@@ -28,17 +28,18 @@ const Login = () => {
         }
     }, []);
 
-    useEffect(() => {
-        if (loggedIn) {
-            navigate('/');
-        }
-    }, [loggedIn, navigate]);
+    // useEffect(() => {
+    //     if (loggedIn) {
+    //         navigate('/');
+    //     }
+    // }, [loggedIn, navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         try {
+            console.log('Submitting to:', axiosUrl.defaults.baseURL + '/api/auth/login');
             const res = await axiosUrl.post('/api/auth/login', formData);
             const { user_id, role, token } = res.data;
 
@@ -49,11 +50,15 @@ const Login = () => {
             setErr('');
             setLoggedIn(true);
         } catch (err) {
-            console.log('Login error: ', err);
+            console.error('Login error: ', err);
             setErr(err.response?.data?.message || 'An error occurred');
         } finally {
             setLoading(false);
         }
+    }
+
+    if (loggedIn) {
+        return navigate('/')
     }
 
     return (

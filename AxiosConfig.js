@@ -1,7 +1,7 @@
-import axios from 'axios'
+import axios from 'axios';
 
 const axiosUrl = axios.create({
-    baseUrl: 'https://api-74ym.onrender.com'
-})
+    baseURL: 'https://api-74ym.onrender.com',
+});
 
-export default axiosUrl
+export default axiosUrl;
