@@ -45,16 +45,16 @@ const Pass = ({ redirectAfterSuccess = true }) => {
   };
 
   return (
-    <div className="pass w-full h-screen flex justify-center items-center">
-      <form onSubmit={handleSubmit} className="formPass w-fit h-fit flex justify-center items-center flex-col rounded-md p-8">
+    <div className="w-full h-screen flex justify-center items-center flex-col">
+      <form onSubmit={handleSubmit} className="formlog w-fit h-fit flex items-center flex-col rounded-md p-8">
         <h1 className="py-2.5 text-2xl font-bold">Reset Password</h1>
         {message && <p className="text-green-500">{message}</p>}
         {error && <p className="text-red-500">{error}</p>}
-        <div className="inputPass">
-          <label htmlFor="newPassword" className="w-24 px-2.5 py-2.5">New Password: </label>
+        <div className="flex flex-row items-center">
+          <label htmlFor="newPassword" className="w-24 px-2.5 py-2.5"><p>Password: </p></label>
           <input
             type="password"
-            placeholder="New Password"
+            placeholder="Password"
             className="input rounded-md w-48 h-10 px-2.5 py-2.5 my-2.5"
             name="newPassword"
             value={new_password}
@@ -63,11 +63,11 @@ const Pass = ({ redirectAfterSuccess = true }) => {
             disabled={loading}
           />
         </div>
-        <div className="inputPass">
-          <label htmlFor="confirmNewPassword" className="w-24 px-2.5 py-2.5">Confirm New Password: </label>
+        <div className="flex flex-row items-center">
+          <label htmlFor="confirmNewPassword" className="w-24 px-2.5 py-2.5"><p>Confirm Password: </p></label>
           <input
             type="password"
-            placeholder="Confirm New Password..."
+            placeholder="Confirm Password..."
             className="input rounded-md w-48 h-10 px-2.5 py-2.5 my-2.5"
             name="confirmNewPassword"
             value={c_new_password}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import axiosUrl from '../../AxiosConfig'; // Ensure this path is correct
 import "../styles/Login.css";
 
 const Login = () => {
@@ -11,6 +11,7 @@ const Login = () => {
     const [err, setErr] = useState('');
     const [loading, setLoading] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -27,34 +28,37 @@ const Login = () => {
         }
     }, []);
 
-    const axiosUrl = axios.create({
-        baseURL: 'https://api-74ym.onrender.com'
-    });
+    // useEffect(() => {
+    //     if (loggedIn) {
+    //         navigate('/');
+    //     }
+    // }, [loggedIn, navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         try {
+            console.log('Submitting to:', axiosUrl.defaults.baseURL + '/api/auth/login');
             const res = await axiosUrl.post('/api/auth/login', formData);
-            console.log('Response: ', res);
-            const { token, message } = res.data;
+            const { user_id, role, token } = res.data;
 
+            localStorage.setItem('user_id', user_id);
+            localStorage.setItem('role', role);
             localStorage.setItem('token', token);
+
             setErr('');
-            // alert(message);
-            setLoggedIn(true); // Set loggedIn state to true after successful login
+            setLoggedIn(true);
         } catch (err) {
-            console.log('Login error: ', err);
+            console.error('Login error: ', err);
             setErr(err.response?.data?.message || 'An error occurred');
         } finally {
             setLoading(false);
         }
-    };
+    }
 
-    // If loggedIn is true, redirect to '/'
     if (loggedIn) {
-        return <Navigate to='/' />;
+        return navigate('/')
     }
 
     return (

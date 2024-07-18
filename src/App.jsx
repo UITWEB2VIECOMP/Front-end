@@ -9,6 +9,7 @@ import Resend from './pages/Resend'
 import Pass from './pages/Pass'
 
 const App = () => {
+
   return (
     <>
       <BrowserRouter>
@@ -16,7 +17,7 @@ const App = () => {
           <Route path='/register' element={<Register />} />
           <Route path='/auth/:id/verify/:token' element={<VerifyEmail />} />
           <Route path='/resend' element={<Resend />} />
-          <Route path='/login' element={<Login />} />
+          <Route exact path='/login' element={<Login />} />
           <Route path='/forgot' element={<Forgot />} />
           <Route path='/auth/:id/resetpassword/:token' element={<Pass />} />
           <Route path='/' element={<Main />} />
