@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axiosUrl from '../../AxiosConfig'; // Ensure this path is correct
+import axiosUrl from '../../AxiosConfig';
 import "../styles/Login.css";
 
 const Login = () => {
@@ -22,24 +22,22 @@ const Login = () => {
     };
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            setLoggedIn(true);
-        }
-    }, []);
+        const checkLoggedIn = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                setLoggedIn(true);
+                navigate('/');
+            }
+        };
 
-    // useEffect(() => {
-    //     if (loggedIn) {
-    //         navigate('/');
-    //     }
-    // }, [loggedIn, navigate]);
+        checkLoggedIn();
+    }, [navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         try {
-            console.log('Submitting to:', axiosUrl.defaults.baseURL + '/api/auth/login');
             const res = await axiosUrl.post('/api/auth/login', formData);
             const { user_id, role, token } = res.data;
 
@@ -49,17 +47,14 @@ const Login = () => {
 
             setErr('');
             setLoggedIn(true);
+            navigate('/');
         } catch (err) {
             console.error('Login error: ', err);
             setErr(err.response?.data?.message || 'An error occurred');
         } finally {
             setLoading(false);
         }
-    }
-
-    if (loggedIn) {
-        return navigate('/')
-    }
+    };
 
     return (
         <div className='w-full h-screen flex items-center justify-center'>
