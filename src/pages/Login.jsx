@@ -36,25 +36,27 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-
+      
         try {
-            const res = await axiosUrl.post('/api/auth/login', formData);
-            const { user_id, role, token } = res.data;
-
-            localStorage.setItem('user_id', user_id);
-            localStorage.setItem('role', role);
-            localStorage.setItem('token', token);
-
-            setErr('');
-            setLoggedIn(true);
-            navigate('/');
+          const res = await axiosUrl.post('/api/auth/login', formData);
+          console.log(res); // Debugging log
+      
+          const { user_id, role } = res.data.data;
+          localStorage.setItem('user_id', user_id);
+          localStorage.setItem('role', role);
+          localStorage.setItem('token', "token");
+      
+          setErr('');
+          setLoggedIn(true);
+          navigate('/');
         } catch (err) {
-            console.error('Login error: ', err);
-            setErr(err.response?.data?.message || 'An error occurred');
+          console.error('Login error: ', err);
+          setErr(err.response?.data?.message || 'An error occurred');
         } finally {
-            setLoading(false);
+          setLoading(false);
         }
-    };
+      };
+      
 
     return (
         <div className='w-full h-screen flex items-center justify-center'>

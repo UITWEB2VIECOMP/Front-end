@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, Navigate } from 'react-router-dom';
-import { FaUser, FaHome, FaSun, FaMoon, FaChevronRight, FaBook } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaUser, FaHome, FaSun, FaMoon, FaBars, FaBook } from 'react-icons/fa';
 import { CiLogout, CiTrophy, CiSettings } from 'react-icons/ci';
 import { MdOutlineManageHistory } from 'react-icons/md';
-import axiosUrl from '../../AxiosConfig'; // Ensure this path is correct
+import axiosUrl from '../../AxiosConfig';
 import '../styles/Aside.css';
 
 const Aside = ({ role, id }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [userInfo, setUserInfo] = useState({});
-    const [verifyStatus, setVerifyStatus] = useState({ status: '', mes: '' });
+    const [loading, setLoading] = useState(true);
+
     const bodyEl = document.querySelector('body');
     const navigate = useNavigate();
-
-    if (role === null || id === null) {
-        return <Navigate to='/login' />;
-    }
 
     const toggleSideBar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -35,11 +32,14 @@ const Aside = ({ role, id }) => {
     };
 
     useEffect(() => {
-        const fetchUserData = async (e) => {
-          e.preventDefault()
+        if (!role || !id) {
+            navigate('/login');
+            return;
+        }
 
+        const fetchUserData = async () => {
             try {
-                const res = await axiosUrl.get('/users/get-users', {
+                const res = await axiosUrl.get('/api/users/get-user', {
                     headers: {
                         user_id: id,
                         role: role
@@ -49,27 +49,41 @@ const Aside = ({ role, id }) => {
                 console.log('API Response:', res);
 
                 if (role === 'student') {
-                    const { firstName, lastName, avatar } = res.data;
-                    console.log('Student Data:', { firstName, lastName, avatar });
-                    setUserInfo({ name: `${firstName} ${lastName}`, avatar });
+                    const { first_name, last_name, avatar } = res.data;
+                    console.log('Student Data:', { first_name, last_name, avatar });
+                    setUserInfo({ name: `${first_name} ${last_name}`, avatar });
                 } else {
                     const { corpName, avatar } = res.data;
                     console.log('Corp Data:', { corpName, avatar });
                     setUserInfo({ name: corpName, avatar });
                 }
+                setLoading(false);
             } catch (err) {
                 console.error('Verification failed: ', err);
-                setVerifyStatus({ status: 'error', mes: 'Invalid link or the link has been expired' });
+                // You might want to set some error state here
+                setLoading(false);  // Set loading to false to prevent infinite loop
             }
         };
 
         fetchUserData();
-    }, [role, id]);
+
+        // Cleanup function
+        return () => {
+            setUserInfo({});
+        };
+    }, [role, id, navigate]);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className={`sidebar ${isSidebarOpen ? '' : 'close'}`}>
-            <header>
-                <div className="image-text">
+            <header className='flex flex-col'>
+                <div className="flex justify-end items-center my-3 mx-3">
+                    <FaBars className='toggle' onClick={toggleSideBar}></FaBars>
+                </div>
+                <div className="image-text py-2">
                     <span className="image">
                         <img src={userInfo.avatar} alt="User Avatar" />
                     </span>
@@ -78,7 +92,6 @@ const Aside = ({ role, id }) => {
                         <span className="profession">{role.toUpperCase()}</span>
                     </div>
                 </div>
-                <FaChevronRight className='toggle' onClick={toggleSideBar}></FaChevronRight>
             </header>
             <div className="menu-bar">
                 <div className="menu">
@@ -124,7 +137,7 @@ const Aside = ({ role, id }) => {
                         </li>
                     </ul>
                 </div>
-                <div className="bottom-content">
+                <div className="bottom-content cursor-pointer">
                     <li className="nav-link" onClick={handleLogout}>
                         <CiLogout className='icon' />
                         <span className="text nav-text">Logout</span>
