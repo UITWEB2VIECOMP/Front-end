@@ -10,13 +10,12 @@ const Aside = ({ role, id }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [userInfo, setUserInfo] = useState({});
+    const [loading, setLoading] = useState(true);
+
     const [verifyStatus, setVerifyStatus] = useState({ status: '', mes: '' });
     const bodyEl = document.querySelector('body');
     const navigate = useNavigate();
 
-    if (role === null || id === null) {
-        return <Navigate to='/login' />;
-    }
 
     const toggleSideBar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -35,9 +34,13 @@ const Aside = ({ role, id }) => {
     };
 
     useEffect(() => {
+        if (!role || !id) {
+            navigate('/login');
+        }
+
         const fetchUserData = async () => {
             try {
-                const res = await axiosUrl.get('/api/users/get-users', {
+                const res = await axiosUrl.get('/api/users/get-user', {
                     headers: {
                         user_id: id,
                         role: role
@@ -47,14 +50,15 @@ const Aside = ({ role, id }) => {
                 console.log('API Response:', res);
 
                 if (role === 'student') {
-                    const { firstName, lastName, avatar } = res.data;
-                    console.log('Student Data:', { firstName, lastName, avatar });
-                    setUserInfo({ name: `${firstName} ${lastName}`, avatar });
+                    const { first_name, last_name, avatar } = res.data;
+                    console.log('Student Data:', { first_name, last_name, avatar });
+                    setUserInfo({ name: `${first_name} ${last_name}`, avatar });
                 } else {
                     const { corpName, avatar } = res.data;
                     console.log('Corp Data:', { corpName, avatar });
                     setUserInfo({ name: corpName, avatar });
                 }
+                setLoading(false);
             } catch (err) {
                 console.error('Verification failed: ', err);
                 setVerifyStatus({ status: 'error', mes: 'Invalid link or the link has been expired' });
@@ -62,8 +66,18 @@ const Aside = ({ role, id }) => {
         };
 
         fetchUserData();
+        return () => {
+            setUserInfo({});
+            setVerifyStatus({ status: '', mes: '' });
+        };
     }, [role, id]);
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
+    if (!role || !id) {
+        return null;
+    }
     return (
         <div className={`sidebar ${isSidebarOpen ? '' : 'close'}`}>
             <header>
