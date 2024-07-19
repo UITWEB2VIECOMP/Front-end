@@ -14,11 +14,11 @@ const App = () => {
     <>
       <BrowserRouter>
         <Routes>
+          <Route exact path='/login' element={<Login />} />
+          <Route path='/forgot' element={<Forgot />} />
           <Route path='/register' element={<Register />} />
           <Route path='/auth/:id/verify/:token' element={<VerifyEmail />} />
           <Route path='/resend' element={<Resend />} />
-          <Route exact path='/login' element={<Login />} />
-          <Route path='/forgot' element={<Forgot />} />
           <Route path='/auth/:id/resetpassword/:token' element={<Pass />} />
           <Route path='/' element={<Main />} />
         </Routes>
