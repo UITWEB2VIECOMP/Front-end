@@ -35,9 +35,11 @@ const Aside = ({ role, id }) => {
     };
 
     useEffect(() => {
-        const fetchUserData = async () => {
+        const fetchUserData = async (e) => {
+          e.preventDefault()
+
             try {
-                const res = await axiosUrl.get('/api/users/get-users', {
+                const res = await axiosUrl.get('/users/get-users', {
                     headers: {
                         user_id: id,
                         role: role

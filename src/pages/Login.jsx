@@ -22,7 +22,7 @@ const Login = () => {
     };
 
     useEffect(() => {
-        const checkLoggedIn = async () => {
+        const checkLoggedIn = () => {
             const token = localStorage.getItem('token');
             if (token) {
                 setLoggedIn(true);
