@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaHome, FaSun, FaMoon, FaBars, FaBook } from 'react-icons/fa';
 import { CiLogout, CiTrophy, CiSettings } from 'react-icons/ci';
 import { MdOutlineManageHistory } from 'react-icons/md';
-import axiosUrl from '../../AxiosConfig';
+import axiosUrl from '../../config/AxiosConfig';
 import '../styles/Aside.css';
 
 const Aside = ({ role, id }) => {
@@ -60,14 +60,12 @@ const Aside = ({ role, id }) => {
                 setLoading(false);
             } catch (err) {
                 console.error('Verification failed: ', err);
-                // You might want to set some error state here
-                setLoading(false);  // Set loading to false to prevent infinite loop
+                setLoading(false); 
             }
         };
 
         fetchUserData();
 
-        // Cleanup function
         return () => {
             setUserInfo({});
         };
@@ -80,7 +78,7 @@ const Aside = ({ role, id }) => {
     return (
         <div className={`sidebar ${isSidebarOpen ? '' : 'close'}`}>
             <header className='flex flex-col'>
-                <div className="flex justify-end items-center my-3 mx-3">
+                <div className="flex justify-start items-center my-3 mx-3">
                     <FaBars className='toggle' onClick={toggleSideBar}></FaBars>
                 </div>
                 <div className="image-text py-2">
@@ -98,40 +96,40 @@ const Aside = ({ role, id }) => {
                     <ul className="menu-links">
                         <li className="nav-link">
                             <Link to='/'>
-                                <FaHome className="icon" />
+                                <FaHome className="icon flex items-center" />
                                 <span className="text nav-text">Home</span>
                             </Link>
                         </li>
                         <li className="nav-link">
                             <Link to='/competition'>
-                                <CiTrophy className="icon" />
+                                <CiTrophy className="icon flex items-center" />
                                 <span className="text nav-text">Competition</span>
                             </Link>
                         </li>
                         {role === 'student' ? (
                             <li className="nav-link">
                                 <Link to='/your-contest'>
-                                    <FaBook className="icon" />
+                                    <FaBook className="icon flex items-center" />
                                     <span className="text nav-text">Your Contest</span>
                                 </Link>
                             </li>
                         ) : (
                             <li className="nav-link">
                                 <Link to='/manage-contest'>
-                                    <MdOutlineManageHistory className="icon" />
+                                    <MdOutlineManageHistory className="icon flex items-center" />
                                     <span className="text nav-text">Manage Contest</span>
                                 </Link>
                             </li>
                         )}
                         <li className="nav-link">
                             <Link to='/profile'>
-                                <FaUser className="icon" />
+                                <FaUser className="icon flex items-center" />
                                 <span className="text nav-text">Profile</span>
                             </Link>
                         </li>
                         <li className="nav-link">
                             <Link to='/settings'>
-                                <CiSettings className="icon" />
+                                <CiSettings className="icon flex items-center" />
                                 <span className="text nav-text">Settings</span>
                             </Link>
                         </li>
@@ -139,7 +137,7 @@ const Aside = ({ role, id }) => {
                 </div>
                 <div className="bottom-content cursor-pointer">
                     <li className="nav-link" onClick={handleLogout}>
-                        <CiLogout className='icon' />
+                        <CiLogout className='icon flex items-center' />
                         <span className="text nav-text">Logout</span>
                     </li>
                     <li className="mode" onClick={toggleDarkMode}>

@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.aside-bar {
+    grid-area: 'aside';
+}
+
+.home-content {
+    grid-area: 'content';
+}
+
+.home-page {
+    display: grid;
+    grid-template-areas: 'aside content';
+}
+

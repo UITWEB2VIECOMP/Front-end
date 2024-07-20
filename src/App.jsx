@@ -3,10 +3,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Login from './pages/Login'
 import Register from './pages/Register'
 import VerifyEmail from './pages/VerifyEmail'
-import Main from './pages/Main'
 import Forgot from './pages/Forgot'
 import Resend from './pages/Resend'
 import Pass from './pages/Pass'
+import Home from './pages/Home'
 
 const App = () => {
 
@@ -20,7 +20,7 @@ const App = () => {
           <Route path='/auth/:id/verify/:token' element={<VerifyEmail />} />
           <Route path='/resend' element={<Resend />} />
           <Route path='/auth/:id/resetpassword/:token' element={<Pass />} />
-          <Route path='/' element={<Main />} />
+          <Route path='/' element={<Home />} />
         </Routes>
       </BrowserRouter>
     </>

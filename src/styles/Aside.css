@@ -158,6 +158,7 @@ body.dark .sidebar header .toggle{
 }
 
 .sidebar.close .toggle{
+    padding: 5px;
     transform: rotate(0deg);
 }
 
@@ -209,7 +210,9 @@ body.dark .sidebar li a:hover .text{
 
 .menu-bar .mode .sun-moon{
     height: 50px;
-    width: 60px;
+    width: 50px;
+    display: flex;
+    align-items: center;
 }
 
 .mode .sun-moon i{
