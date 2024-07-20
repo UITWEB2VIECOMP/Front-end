@@ -1,17 +1,40 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-.aside-bar {
-    grid-area: 'aside';
-}
-
-.home-content {
-    grid-area: 'content';
-}
-
-.home-page {
-    display: grid;
-    grid-template-areas: 'aside content';
-}
-
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+  }
+  
+  .home-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .sidebar {
+    width: 250px;
+    transition: width 0.3s;
+  }
+  
+  .sidebar.close {
+    width: 80px;
+  }
+  
+  .home-content {
+    flex: 1;
+    padding: 20px;
+    transition: margin-left 0.3s;
+  }
+  
+  .sidebar + .home-content {
+    margin-left: 250px;
+  }
+  
+  .sidebar.close + .home-content {
+    margin-left: 80px;
+  }
+  
+  .dark {
+    background-color: #333;
+    color: #fff;
+  }
+  
