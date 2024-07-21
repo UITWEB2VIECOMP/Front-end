@@ -6,11 +6,9 @@ import { MdOutlineManageHistory } from 'react-icons/md';
 import axiosUrl from '../../AxiosConfig'; // Ensure this path is correct
 import '../styles/Aside.css';
 
-const Aside = ({ role, id }) => {
+const Aside = ({ userInfo, role }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [isDarkMode, setIsDarkMode] = useState(false);
-    const [userInfo, setUserInfo] = useState({});
-    const [loading, setLoading] = useState(true);
 
     const [verifyStatus, setVerifyStatus] = useState({ status: '', mes: '' });
     const bodyEl = document.querySelector('body');
@@ -33,6 +31,7 @@ const Aside = ({ role, id }) => {
         navigate('/login');
     };
 
+<<<<<<< Updated upstream
     useEffect(() => {
         if (!role || !id) {
             navigate('/login');
@@ -78,6 +77,8 @@ const Aside = ({ role, id }) => {
     if (!role || !id) {
         return null;
     }
+=======
+>>>>>>> Stashed changes
     return (
         <div className={`sidebar ${isSidebarOpen ? '' : 'close'}`}>
             <header>
@@ -85,7 +86,7 @@ const Aside = ({ role, id }) => {
                     <span className="image">
                         <img src={userInfo.avatar} alt="User Avatar" />
                     </span>
-                    <div className="text logo-text">
+                    <div className="text logo-text">    
                         <span className="name">{userInfo.name || 'Loading...'}</span>
                         <span className="profession">{role.toUpperCase()}</span>
                     </div>
