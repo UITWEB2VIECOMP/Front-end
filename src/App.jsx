@@ -7,6 +7,7 @@ import Forgot from './pages/Forgot'
 import Resend from './pages/Resend'
 import Pass from './pages/Pass'
 import Home from './pages/Home'
+import Competition from './pages/Competition'
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
           <Route path='/resend' element={<Resend />} />
           <Route path='/auth/:id/resetpassword/:token' element={<Pass />} />
           <Route path='/' element={<Home />} />
+          <Route path='/competition' element={<Competition />} />
         </Routes>
       </BrowserRouter>
     </>
