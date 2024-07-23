@@ -1,4 +1,4 @@
-  body, html {
+body, html {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -37,7 +37,6 @@
     background-color: #333;
     color: #fff;
   }
-
   .name {
     /* color: rgb(232, 234, 237); */
     font-weight: 700;

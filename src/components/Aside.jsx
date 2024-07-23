@@ -6,11 +6,9 @@ import { MdOutlineManageHistory } from 'react-icons/md';
 import axiosUrl from '../../config/AxiosConfig';
 import '../styles/Aside.css';
 
-const Aside = ({ role, id }) => {
+const Aside = ({ userInfo, role }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [isDarkMode, setIsDarkMode] = useState(false);
-    const [userInfo, setUserInfo] = useState({});
-    const [loading, setLoading] = useState(true);
 
     const bodyEl = document.querySelector('body');
     const navigate = useNavigate();
@@ -31,50 +29,6 @@ const Aside = ({ role, id }) => {
         navigate('/login');
     };
 
-    useEffect(() => {
-        if (!role || !id) {
-            navigate('/login');
-            return;
-        }
-
-        const fetchUserData = async () => {
-            try {
-                const res = await axiosUrl.get('/api/users/get-user', {
-                    headers: {
-                        user_id: id,
-                        role: role
-                    }
-                });
-
-                console.log('API Response:', res);
-
-                if (role === 'student') {
-                    const { first_name, last_name, avatar } = res.data;
-                    console.log('Student Data:', { first_name, last_name, avatar });
-                    setUserInfo({ name: `${first_name} ${last_name}`, avatar });
-                } else {
-                    const { corpName, avatar } = res.data;
-                    console.log('Corp Data:', { corpName, avatar });
-                    setUserInfo({ name: corpName, avatar });
-                }
-                setLoading(false);
-            } catch (err) {
-                console.error('Verification failed: ', err);
-                setLoading(false); 
-            }
-        };
-
-        fetchUserData();
-
-        return () => {
-            setUserInfo({});
-        };
-    }, [role, id, navigate]);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
     return (
         <div className={`sidebar ${isSidebarOpen ? '' : 'close'}`}>
             <header className='flex flex-col'>
@@ -85,7 +39,7 @@ const Aside = ({ role, id }) => {
                     <span className="image">
                         <img src={userInfo.avatar} alt="User Avatar" />
                     </span>
-                    <div className="text logo-text">
+                    <div className="text logo-text">    
                         <span className="name">{userInfo.name || 'Loading...'}</span>
                         <span className="profession">{role.toUpperCase()}</span>
                     </div>

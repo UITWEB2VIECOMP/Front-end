@@ -1,67 +1,81 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Home.css';
+import axiosUrl from '../../config/AxiosConfig';
 import Aside from '../components/Aside';
-import { IoTrophyOutline } from 'react-icons/io5'
-import { AiFillCalculator } from "react-icons/ai"
-import { Bs123 } from "react-icons/bs"
+import { Route, Routes } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Profile from '../../src_profile/profile'
+import Settings from '../../src_settings/settings';
+import ProfileSettings from '../../src_settings/profileSettings';
+import ChangePasssword from '../../src_settings/changePasssword';
+import H0me from './h0me';
+import Competition from './Competition';
 
 const Home = () => {
   const [role, setRole] = useState(null);
   const [id, setId] = useState(null);
+  const [userInfo, setUserInfo] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+  //Fechuser function
+  const fetchUserData = async (id, role) => {
+    try {
+          const res = await axiosUrl.get('/api/users/get-user', {
+              headers: {
+                  user_id: id,
+                  role: role
+              }
+          });
+
+          console.log('API Response:', res);
+
+          if (role === 'student') {
+              const { first_name, last_name, avatar, email,dob, created_at, prizes, has_participated } = res.data;
+              console.log('Student Data:', { first_name, last_name, avatar, email,dob, created_at, prizes, has_participated });
+              setUserInfo({ name: `${first_name} ${last_name}`, avatar, email, dob,created_at, prizes, has_participated });
+          } else {
+              const { corp_name, avatar, email, address, contact_info, created_at, description, has_hosted } = res.data;
+              console.log('Corp Data:', { corp_name, avatar, email, address, contact_info, created_at, description, has_hosted });
+              setUserInfo({ name: corp_name, avatar, email, address, contact_info, created_at, description, has_hosted });
+          }
+          setLoading(false);
+      } catch (err) {
+          console.error('Verification failed: ', err);
+          setLoading(false); 
+      }
+  };
 
   useEffect(() => {
     const storedRole = localStorage.getItem('role');
     const storedId = localStorage.getItem('user_id');
-    setRole(storedRole);
-    setId(storedId);
-  }, []);
+    if (!storedRole || !storedId) {
+      navigate('/login');
+    } else {
+      setRole(storedRole);
+      setId(storedId);
+
+    fetchUserData(storedId, storedRole);
+    }
+  }, [navigate]);
+  if (loading) {
+      return <div>Loading...</div>;
+  }
 
   return (
     <div className="home-container">
-      {role && id ? <Aside id={id} role={role} /> : <div>Loading...</div>}
-      <div className="home-content px-20 flex flex-col">
-          <div className="title py-20 flex items-center flex-col">
-              <h1 className='name'>Welcome, Anh Duc!</h1>
-              <p>This is the place to learn data science and build a portfolio.</p>
-          </div>
-          { role === 'student' ? 
-          <div className="stats w-full flex justify-evenly">
-          <div className="stat">
-            <div className='stat_title flex items-center mb-4'>
-              <AiFillCalculator className='icon-stat mr-4' />
-              <h3>Competitions</h3>
-            </div>
-            <div className='mark'>
-              <div className='prop'></div>
-              <h3>0</h3>
-              <p>total joined</p>
-            </div>
-          </div>
-          <div className="stat">
-            <div className='stat_title flex items-center mb-4'>
-              <IoTrophyOutline className='icon-stat mr-4' />
-              <h3>Prize</h3>
-            </div>
-            <div className='mark'>
-              <div className='prop'></div>
-              <h3>0</h3>
-              <p>total prize</p>
-            </div>
-          </div>
-          <div className="stat">
-            <div className='stat_title flex items-center mb-4'>
-              <Bs123 className='icon-stat mr-4' />
-              <h3>Average Grade</h3>
-            </div>
-            <div className='mark'>
-              <div className='prop'></div>
-              <h3 className='flex items-baseline'>0</h3>
-              <p className='flex items-baseline pt-1'>average score</p>
-            </div>
-          </div>
-        </div> :
-        <>Loading...</> 
-        }
+      {role && id ? <Aside userInfo= {userInfo} role={role} /> : <div>Loading...</div>}
+      <div className="home-content">
+        <Routes>
+          <Route path='/' element={<H0me userId={id} role={role}></H0me>} ></Route>
+          <Route path='/profile' element={<Profile  userInfo= {userInfo}role={role}></Profile>}></Route>
+          <Route  path='/competition' element={<Competition></Competition>}></Route>
+          <Route path='/settings' element={<Settings  userId={id} role={role}></Settings>}>
+              <Route index element={<ProfileSettings userId={id} role={role} />} />
+              <Route  path="profile" element={<ProfileSettings userId={id} role={role}  />} />
+              <Route path="password" element={<ChangePasssword userId={id} role={role} />} />
+          </Route>
+        </Routes>
       </div>
     </div>
   );

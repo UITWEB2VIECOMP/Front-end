@@ -1,0 +1,161 @@
+/* Container styling */
+.settings-container {
+    margin: auto;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Heading styling */
+.settings-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Navigation styling */
+nav {
+    margin-bottom: 20px;
+}
+
+nav a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Section styling */
+.section {
+    margin-bottom: 30px; /* Add space between sections */
+}
+
+.section h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Group styling */
+.setting-group {
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+/* Input and label styling */
+.setting-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.setting-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.setting-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Label styling */
+.avatar-label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Custom file input button */
+.file-input {
+    border: none !important;
+}
+
+.file-input + label {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+}
+
+/* Hover and active states for custom file input button */
+.file-input + label:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.file-input + label:active {
+    background-color: #004085;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px);
+}
+
+/* Avatar preview styling */
+.avatar-preview {
+    margin-top: 20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+/* Button styling */
+button {
+    display: inline-block !important;
+    padding: 5px 10px !important;
+    font-size: 16px !important;
+    color: #ffffff !important;
+    background-color : #007bff !important;
+    border: none !important;
+    border-radius: 5px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s !important;
+}
+
+/* Hover state */
+button:hover {
+    background-color: #0056b3 !important;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Active state */
+button:active {
+    background-color: #004085 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    transform: translateY(1px) !important;
+}
+
+/* Disabled state */
+button:disabled {
+    background-color: #cccccc!important ;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+}
+
+/* Focus state for accessibility */
+button:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.5) !important;
+}
