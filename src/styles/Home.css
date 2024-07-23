@@ -37,4 +37,38 @@ body, html {
     background-color: #333;
     color: #fff;
   }
-  
+
+  .name {
+    /* color: rgb(232, 234, 237); */
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  .mark {
+    position: relative;
+    padding-left: 44px;
+    min-width: 170px;
+  }
+
+  .icon-stat {
+    position: relative;
+    border: 1px solid;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    padding: 5px;
+  }
+
+  .prop {
+    position: absolute;
+    bottom: 4px;
+    top: 4px;
+    left: 14px;
+    border-top: 1px solid rgb(60, 64, 67);
+    border-bottom: 1px solid rgb(60, 64, 67);
+    border-left: 1px solid rgb(60, 64, 67);
+    border-image: initial;
+    border-right: none;
+    width: 4px;
+  }
