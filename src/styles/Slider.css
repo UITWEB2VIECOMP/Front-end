@@ -20,4 +20,21 @@
     border: 1px solid #ddd;
     box-sizing: border-box;
   }
+
+  .swiper-pagination {
+    display: flex;
+    justify-content: center; /* Center bullets horizontally */
+    padding-top: 10px; /* Adjust space between swiper and pagination */
+  }
   
+  .swiper-pagination-bullet {
+    width: 8px; /* Adjust size */
+    height: 8px; /* Adjust size */
+    opacity: 1; /* Ensure the bullets are fully opaque */
+    margin: 0 4px; /* Adjust spacing between bullets */
+    border-radius: 50%; /* Make bullets round */
+  }
+  
+  .swiper-pagination-bullet-active {
+    background-color: #ff0000; /* Color of active bullet */
+  }
