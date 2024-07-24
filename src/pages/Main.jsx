@@ -12,7 +12,7 @@ const h0me =({role, userInfo}) => {
             <p>This is the place to learn data science and build a portfolio.</p>
         </div>
         { role === 'student' ? 
-        <div className="stats w-full flex justify-evenly">
+        (<div className="stats w-full flex justify-evenly">
         <div className="stat">
         <div className='stat_title flex items-center mb-4'>
             <AiFillCalculator className='icon-stat mr-4' />
@@ -46,8 +46,20 @@ const h0me =({role, userInfo}) => {
             <p className='flex items-baseline pt-1'>average score</p>
         </div>
         </div>
-    </div> :
-    <>Loading...</> 
+    </div>) :
+    (<div className="stats w-full flex justify-evenly">
+        <div className="stat">
+        <div className='stat_title flex items-center mb-4'>
+            <IoTrophyOutline className='icon-stat mr-4' />
+            <h3>Hosted</h3>
+        </div>
+        <div className='mark'>
+            <div className='prop'></div>
+            <h3>0</h3>
+            <p>total Hosted</p>
+        </div>
+        </div>
+    </div>)
     }
     </div>
   )
