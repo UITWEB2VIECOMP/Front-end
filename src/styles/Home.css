@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body, html {
     margin: 0;
     padding: 0;
@@ -8,6 +12,7 @@ body, html {
   .home-container {
     display: flex;
     height: 100vh;
+    overflow: hidden;
   }
   
   .sidebar {
@@ -21,8 +26,10 @@ body, html {
   
   .home-content {
     flex: 1;
+    overflow-y: auto;
     padding: 20px;
     transition: margin-left 0.3s;
+    box-sizing: border-box;
   }
   
   .sidebar + .home-content {

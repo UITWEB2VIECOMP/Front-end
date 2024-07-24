@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/Home.css';
+import '../styles/Home.css'
 import axiosUrl from '../../config/AxiosConfig';
 import Aside from '../components/Aside';
 import { Route, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import Profile from '../../src_profile/profile'
 import Settings from '../../src_settings/settings';
 import ProfileSettings from '../../src_settings/profileSettings';
 import ChangePasssword from '../../src_settings/changePasssword';
-import H0me from './h0me';
+import H0me from './Main';
 import Competition from './Competition';
+import Profile from './Profile';
 
 const Home = () => {
   const [role, setRole] = useState(null);
@@ -66,16 +66,16 @@ const Home = () => {
     <div className="home-container">
       {role && id ? <Aside userInfo= {userInfo} role={role} /> : <div>Loading...</div>}
       <div className="home-content">
-        <Routes>
-          <Route path='/' element={<H0me userId={id} role={role}></H0me>} ></Route>
-          <Route path='/profile' element={<Profile  userInfo= {userInfo}role={role}></Profile>}></Route>
-          <Route  path='/competition' element={<Competition></Competition>}></Route>
-          <Route path='/settings' element={<Settings  userId={id} role={role}></Settings>}>
-              <Route index element={<ProfileSettings userId={id} role={role} />} />
-              <Route  path="profile" element={<ProfileSettings userId={id} role={role}  />} />
-              <Route path="password" element={<ChangePasssword userId={id} role={role} />} />
-          </Route>
-        </Routes>
+          <Routes>
+            <Route path='/' element={<H0me userId={id} userInfo={userInfo} role={role}></H0me>} ></Route>
+            <Route path='/profile' element={<Profile  userInfo= {userInfo}role={role}></Profile>}></Route>
+            <Route  path='/competition' element={<Competition></Competition>}></Route>
+            <Route path='/settings' element={<Settings  userId={id} role={role}></Settings>}>
+            <Route index element={<ProfileSettings userId={id} role={role} />} />
+            <Route  path="profile" element={<ProfileSettings userId={id} role={role}  />} />
+            <Route path="password" element={<ChangePasssword userId={id} role={role} />} />
+            </Route>
+          </Routes>
       </div>
     </div>
   );

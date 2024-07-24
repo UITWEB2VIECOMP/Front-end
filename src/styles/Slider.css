@@ -1,40 +1,83 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Slider.css */
+.carousel-wrapper {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+}
 
-/* Carousel.css */
-/* Carousel.css */
 .swiper {
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-  }
-  
-  .swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-    background: #fff;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
-  }
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
 
-  .swiper-pagination {
-    display: flex;
-    justify-content: center; /* Center bullets horizontally */
-    padding-top: 10px; /* Adjust space between swiper and pagination */
-  }
-  
-  .swiper-pagination-bullet {
-    width: 8px; /* Adjust size */
-    height: 8px; /* Adjust size */
-    opacity: 1; /* Ensure the bullets are fully opaque */
-    margin: 0 4px; /* Adjust spacing between bullets */
-    border-radius: 50%; /* Make bullets round */
-  }
-  
-  .swiper-pagination-bullet-active {
-    background-color: #ff0000; /* Color of active bullet */
-  }
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.card {
+  /* background-color: #fff; */
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  width: 280px; /* Adjust the width of the cards */
+  height: 400px; /* Adjust the height of the cards */
+  display: flex;
+  flex-direction: column;
+}
+
+.card-image {
+  width: 100%;
+  height: 150px; /* Adjust the height of the image */
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.card-content h3 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.card-content p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.swiper-pagination {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  opacity: 1;
+  margin: 0 4px;
+  border-radius: 50%;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #ff0000;
+}

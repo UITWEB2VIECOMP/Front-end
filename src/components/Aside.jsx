@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaHome, FaSun, FaMoon, FaBars, FaBook } from 'react-icons/fa';
 import { CiLogout, CiTrophy, CiSettings } from 'react-icons/ci';

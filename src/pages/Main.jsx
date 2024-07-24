@@ -1,14 +1,14 @@
 import React from 'react'
-import '../styles/Home.css';
+import '../styles/Main.css';
 import { IoTrophyOutline } from 'react-icons/io5'
 import { AiFillCalculator } from "react-icons/ai"
 import { Bs123 } from "react-icons/bs"
 
-export default function h0me({role, userId}) {
+const h0me =({role, userInfo}) => {
   return (
     <div className="home-content px-20 flex flex-col">
         <div className="title py-20 flex items-center flex-col">
-            <h1 className='name'>Welcome, Anh Duc!</h1>
+            <h1 className='name'>Welcome, <span>{userInfo.name || 'Loading...'}</span>!</h1>
             <p>This is the place to learn data science and build a portfolio.</p>
         </div>
         { role === 'student' ? 
@@ -52,3 +52,5 @@ export default function h0me({role, userId}) {
     </div>
   )
 }
+
+export default h0me

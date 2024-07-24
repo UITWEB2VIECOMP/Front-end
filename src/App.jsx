@@ -7,11 +7,12 @@ import Forgot from './pages/Forgot'
 import Resend from './pages/Resend'
 import Pass from './pages/Pass'
 import Home from './pages/Home'
-import Profile from '../src_profile/profile'
 import Settings from '../src_settings/settings'
 import ChangePassword from '../src_settings/changePasssword'
 import ProfileSettings from '../src_settings/profileSettings'
 import Competition from './pages/Competition'
+import Profile from './pages/Profile'
+
 const App = () => {
 
   return (
