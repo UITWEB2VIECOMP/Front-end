@@ -12,6 +12,8 @@ import ChangePassword from '../src_settings/changePasssword'
 import ProfileSettings from '../src_settings/profileSettings'
 import Competition from './pages/Competition'
 import Profile from './pages/Profile'
+import Contest from './pages/Contest'
+import ContestModify from './pages/ContestModify'
 
 const App = () => {
 
@@ -33,6 +35,9 @@ const App = () => {
                   <Route path="profile" element={<ProfileSettings />} />
                   <Route path="password" element={<ChangePassword />} />
               </Route> 
+              <Route path='/contest/:contest_id' element={<Contest></Contest>}>
+              </Route>
+              <Route path="/contest/:contest_id/modify" element={<ContestModify />} />
           </Route>
           <Route path='*' element={<div>Page Not found</div>}></Route>
         </Routes>

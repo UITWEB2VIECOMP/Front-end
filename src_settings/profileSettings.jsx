@@ -82,7 +82,7 @@ export default function ProfileSettings({ role, userId }) {
                     required
                 />
                 {avatar && <img src={avatarPreview} alt="Avatar Preview" className="avatar-preview" />}
-                <button onClick={(e) => handleSubmit(e, 'avatar')}>Change Avatar</button>
+                <button className="setting-btn" onClick={(e) => handleSubmit(e, 'avatar')}>Change Avatar</button>
             </div>
 
             {role == 'student' ? (
@@ -105,7 +105,7 @@ export default function ProfileSettings({ role, userId }) {
                             required
                         />
                     </div>
-                    <button onClick={(e) => handleSubmit(e, 'name')}>Change Name</button>
+                    <button className="setting-btn" onClick={(e) => handleSubmit(e, 'name')}>Change Name</button>
 
                     <div className="setting-group">
                         <label htmlFor="dob">Date of Birth:</label>
@@ -117,7 +117,7 @@ export default function ProfileSettings({ role, userId }) {
                             required
                         />
                     </div>
-                    <button onClick={(e) => handleSubmit(e, 'DOB')}>Change DOB</button>
+                    <button className="setting-btn" onClick={(e) => handleSubmit(e, 'DOB')}>Change DOB</button>
                 </div>
             ) : (
                 <div>
@@ -131,7 +131,7 @@ export default function ProfileSettings({ role, userId }) {
                             required
                         />
                     </div>
-                    <button onClick={(e) => handleSubmit(e, 'name')}>Change Name</button>
+                    <button className="setting-btn" onClick={(e) => handleSubmit(e, 'name')}>Change Name</button>
 
                     <div className="setting-group">
                         <label htmlFor="description">Description:</label>
@@ -143,7 +143,7 @@ export default function ProfileSettings({ role, userId }) {
                             required
                         />
                     </div>
-                    <button onClick={(e) => handleSubmit(e, 'description')}>Change Description</button>
+                    <button  className="setting-btn" onClick={(e) => handleSubmit(e, 'description')}>Change Description</button>
 
                     <div className="setting-group">
                         <label htmlFor="address">Address:</label>
@@ -155,7 +155,7 @@ export default function ProfileSettings({ role, userId }) {
                             required
                         />
                     </div>
-                    <button onClick={(e) => handleSubmit(e, 'address')}>Change Address</button>
+                    <button className="setting-btn" onClick={(e) => handleSubmit(e, 'address')}>Change Address</button>
 
                     <div className="setting-group">
                         <label htmlFor="contact">Contact Info:</label>
@@ -167,7 +167,7 @@ export default function ProfileSettings({ role, userId }) {
                             required
                         />
                     </div>
-                    <button onClick={(e) => handleSubmit(e, 'contact')}>Change Contact</button>
+                    <button className="setting-btn" onClick={(e) => handleSubmit(e, 'contact')}>Change Contact</button>
                 </div>
             )}
 

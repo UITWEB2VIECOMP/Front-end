@@ -75,7 +75,7 @@ export default function ChangePassword({userId, role}) {
                 />
             </div>
 
-            <button onClick={handlePasswordSubmit}>Change Password</button>
+            <button className="setting-btn" onClick={handlePasswordSubmit}>Change Password</button>
             {err && <div className="error-message">{err}</div>}
             {loading && <div className="loading-message">Loading...</div>}
         </div>
