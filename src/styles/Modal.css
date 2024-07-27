@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body.active-    dal {
+    overflow-y: hidden;
+}
+
+.btn-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    display: block;
+    font-size: 18px;
+    border: 2px solid black;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-modal:hover {
+    background-color: black;
+    border-radius: 6px;
+    color: white;
+    transform: scale(1.2);
+    transition: 0.5s;
+    animation-delay: 1ms;
+}
+
+.modal, .overlay {
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.overlay {
+    background: rgba(49,49,49,0.8);
+}
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ccc;
+    border-radius: 10px;
+    padding: 30px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form-create {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.text-label {
+    width: 200px;
+}
+
+.form-create input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.title-project {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    color: black;
+    font-weight: 500em;
+    font-size: larger;
+    margin-bottom: 10%;
+}
+
+.close-modal {
+    display: flex;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 10%;
+    top: 10px;
+    right: 10px;
+    font-size: 25px;
+    background-color: tomato;
+    color: black;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-left: 100px;
+    
+}
+
+.close-modal:hover {
+    background-color: red;
+    transform: scale(1.2) ;
+    transition: 0.5s;
+    animation-delay: 0.5ms;
+
+}
+
+.name-project {
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.desc-project  {
+    display: flex;
+    align-items: center;
+    color: black;
+    margin-top: 5%;
+}
+
+.Desc-table {
+    display: flex;
+    color: black;
+    width: 200px;
+    height:100px;
+}
+
+.create-project1 {
+    display: flex;
+    align-items: center;
+    color: black;
+    background-color: white;
+    margin-top: 5%;
+    cursor: pointer;
+    border: 2px solid aqua;    
+    border-radius: 15px;
+    padding: 5px 10px;
+}
+
+.create-project1:hover {
+    border: 2px solid white;
+    background-color: lightblue;
+    color: black;
+    letter-spacing: 3%;
+    transform: scale(1.2);
+    transition: 0.5s;
+}

@@ -3,6 +3,7 @@ import '../styles/Competition.css';
 import Slider from '../components/Slider';
 
 const Competition = () => {
+
   return (
     <div className='comp-container'>
       <div className='comp-content'>
