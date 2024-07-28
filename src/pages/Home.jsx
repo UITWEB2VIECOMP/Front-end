@@ -66,13 +66,14 @@ const Home = () => {
   }
 
   return (
+    
     <div className="home-container">
       {role && id ? <Aside userInfo= {userInfo} role={role} /> : <div>Loading...</div>}
       <div className="home-content">
           <Routes>
             <Route path='/' element={<H0me userId={id} userInfo={userInfo} role={role}></H0me>} ></Route>
             <Route path='/profile' element={<Profile  userInfo= {userInfo}role={role}></Profile>}></Route>
-            <Route  path='/competition' element={<Competition></Competition>}></Route>
+            <Route  path='/competition' element={<Competition userId={id} role={role} ></Competition>}></Route>
             <Route path='/settings' element={<Settings  userId={id} role={role}></Settings>}>
             <Route index element={<ProfileSettings userId={id} role={role} />} />
               <Route  path="profile" element={<ProfileSettings userId={id} role={role}  />} />

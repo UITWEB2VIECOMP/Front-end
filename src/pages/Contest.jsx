@@ -51,12 +51,12 @@ export default function Contest({ role, userId }) {
       }
     const deleteContest = async(e)=>{
         try {
-            const res = await axiosUrl.post(`/api/contest/delete/${contest_id}` ,{
-                headers: {
+            const res = await axiosUrl.post(`/api/contest/delete/${contest_id}`,{} ,{
+                headers:{
                     user_id: userId,
-                    role: role
+                    role: role,
                 }
-            });
+            })   
             navigate('/')
         } catch (error) {
             console.error('Verification failed: ', err);

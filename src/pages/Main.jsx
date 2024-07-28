@@ -1,15 +1,49 @@
-import React from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import '../styles/Main.css';
 import { IoTrophyOutline } from 'react-icons/io5'
 import { AiFillCalculator } from "react-icons/ai"
 import { Bs123 } from "react-icons/bs"
+import Slider from '../components/Slider';
+import axiosUrl from '../../config/AxiosConfig';
+import { useNavigate } from 'react-router-dom';
+export const Userinfo2 = createContext()
+const h0me =({role, userInfo, userId}) => {
+    const navigate = useNavigate()
+    const [loading, setLoading] = useState(true);
+    const [homeInfo,setHomeInfo]=useState()
+    const fetchHomeInfo =  async({userId,role})=>{
+        try {
+            const res =  await axiosUrl.get("/api/homepage/home-info",{
+                headers:{
+                    user_id: userId,
+                    role: role,
+                }
+            })   
+            setHomeInfo(res.data.data);
+            console.log('Home Response:', res);
+            setLoading(false);
+        } catch (error) {
+            console.error('Verification failed: ', error);
+            setLoading(false);
+        }
+        
+    }
+useEffect(() => {
+    if (!role || !userId) {
+        navigate('/login');
+    } else {
+        fetchHomeInfo({userId, role});
+    }
+    }, [role, userId, navigate]);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-const h0me =({role, userInfo}) => {
   return (
-    <div className="home-content px-20 flex flex-col">
+    <div className="main-content px-20 flex flex-col">
         <div className="title py-20 flex items-center flex-col">
             <h1 className='name'>Welcome, <span>{userInfo.name || 'Loading...'}</span>!</h1>
-            <p>This is the place to learn data science and build a portfolio.</p>
+            <p>This is the place to try out your self and build your skill.</p>
         </div>
         { role === 'student' ? 
         (<div className="stats w-full flex justify-evenly">
@@ -20,7 +54,7 @@ const h0me =({role, userInfo}) => {
         </div>
         <div className='mark'>
             <div className='prop'></div>
-            <h3>0</h3>
+            <h3>{homeInfo.participated}</h3>
             <p>total joined</p>
         </div>
         </div>
@@ -31,7 +65,7 @@ const h0me =({role, userInfo}) => {
         </div>
         <div className='mark'>
             <div className='prop'></div>
-            <h3>0</h3>
+            <h3>{homeInfo.prizes}</h3>
             <p>total prize</p>
         </div>
         </div>
@@ -42,7 +76,7 @@ const h0me =({role, userInfo}) => {
         </div>
         <div className='mark'>
             <div className='prop'></div>
-            <h3 className='flex items-baseline'>0</h3>
+            <h3 className='flex items-baseline'>{parseFloat( homeInfo.avggrade).toFixed(2)}</h3>
             <p className='flex items-baseline pt-1'>average score</p>
         </div>
         </div>
@@ -55,12 +89,20 @@ const h0me =({role, userInfo}) => {
         </div>
         <div className='mark'>
             <div className='prop'></div>
-            <h3>0</h3>
+            <h3>{homeInfo.hosted}</h3>
             <p>total Hosted</p>
         </div>
         </div>
     </div>)
     }
+    <div style={{marginTop:"50px"}}>
+        <Userinfo2.Provider value={{role, userId}}>
+            <div className="ongoing-comp" page="main">
+                <h1>ONGOING</h1>
+                <Slider target="ongoing" />
+                </div>
+        </Userinfo2.Provider>
+    </div>
     </div>
   )
 }
