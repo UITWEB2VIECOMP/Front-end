@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../styles/Modal.css'
-import { TiPlus } from "react-icons/ti"
+import { FaPlus } from "react-icons/fa"
 import { IoMdClose } from "react-icons/io"
 
 const Modal = () => {
@@ -19,10 +19,10 @@ const Modal = () => {
 
   return (
     <>
-      <button onClick={toggleModal} className='w-44 h-14 flex'>
-        <TiPlus />
+      <div onClick={toggleModal} className='btn w-44 h-14 flex items-center justify-evenly cursor-pointer rounded-2xl'>
+        <FaPlus className='w-5 h-5' />
         <p>Create contest</p>
-      </button>
+      </div>
 
       {
         modal && (
@@ -30,22 +30,41 @@ const Modal = () => {
             <div className="overlay"></div>
             <div className="modal-content">
               <div className="title-project">
-                  <h2>Create Project</h2>
+                  <h2>Create Contest</h2>
                   <button className="close-modal" onClick={toggleModal}>
                   <IoMdClose />
                   </button>
               </div>
               <form className="form-create">
-                  <div className="name-project">
-                      <p className="text-label" htmlFor="">Name :</p>
-                      <input className="input-modal" type="text" placeholder=" Name of project" autoFocus required />
+                  <div className="upperform">
+                    <div>
+                      <label htmlFor="">Name: </label>
+                      <input type="text" placeholder='Name' />
+                    </div>
+                    <div>
+                      <label htmlFor="">Start date: </label>
+                      <input type="date" />
+                    </div>
+                    <div>
+                      <label htmlFor="">End date: </label>
+                      <input type="date"/>
+                    </div>
                   </div>
-                  <div className="desc-project">
-                      <label className="text-label" htmlFor="">Description :</label>
-                      <input className="Desc-table" type="text" placeholder=" Desciption..." required />
-                  </div>
-                  <div className="create-project">
-                      <button className="create-project1" type="submit">Create project</button>
+                  <div className="midform">
+                    <div>
+                      <label htmlFor="">Contest description: </label>
+                      <input type="text" placeholder='Description' />
+                    </div>
+                    <div>
+                      <div>
+                        <label htmlFor="">Prize: </label>
+                        <input type="text" placeholder='Prize' />
+                      </div>
+                      <div>
+                        <label htmlFor="">Image: </label>
+                        <input type="file"  />
+                      </div>
+                    </div>
                   </div>
               </form>
             </div>
