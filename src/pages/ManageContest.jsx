@@ -6,7 +6,7 @@ import Dropdown from '../components/Dropdown'
 const ManageContest = () => {
   return (
     <>
-      <div className='w-full h-full flex items-center justify-center flex-col'>
+      <div className='w-full h-full  flex items-center mn-container flex-col'>
         <div className="title py-3.5">
           <h1>Manage contest</h1>
         </div>

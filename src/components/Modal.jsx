@@ -1,14 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/Modal.css'
 import { FaPlus } from "react-icons/fa"
 import { IoMdClose } from "react-icons/io"
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import { DateRange } from 'react-date-range';
+import { addDays } from 'date-fns';
 
 const Modal = () => {
 
   const [modal, setModal] = useState(false)
+  const [state, setState] = useState([
+    {
+      startDate: new Date(),
+      endDate: null,
+      key: 'selection'
+    }
+  ]);
+  const [datepicker, setDatePicker] = useState(false)
 
   const toggleModal = () => {
     setModal(!modal)
+  }
+  const toggleDatePicker = () => {
+    setDatePicker(!datepicker)
   }
 
   if(modal) {
@@ -41,31 +56,37 @@ const Modal = () => {
                       <label htmlFor="">Name: </label>
                       <input type="text" placeholder='Name' />
                     </div>
-                    <div>
-                      <label htmlFor="">Start date: </label>
-                      <input type="date" />
-                    </div>
-                    <div>
-                      <label htmlFor="">End date: </label>
-                      <input type="date"/>
+                    <div className='datepicker'>
+                        <button type="button" onClick={toggleDatePicker}>Select Start Date - End Date</button>
+                        {datepicker &&(
+                          <DateRange
+                          editableDateInputs={true}
+                          onChange={item => setState([item.selection])}
+                          moveRangeOnFirstSelection={false}
+                          ranges={state}
+                        />
+                          )
+                        }
+
                     </div>
                   </div>
                   <div className="midform">
                     <div>
                       <label htmlFor="">Contest description: </label>
-                      <input type="text" placeholder='Description' />
+                      <textarea name="description" rows="4" cols="100" id=""></textarea>
                     </div>
-                    <div>
+                    <div className='other'>
                       <div>
                         <label htmlFor="">Prize: </label>
                         <input type="text" placeholder='Prize' />
                       </div>
                       <div>
                         <label htmlFor="">Image: </label>
-                        <input type="file"  />
+                        <input className='file-input' type="file"  />
                       </div>
                     </div>
                   </div>
+                  <hr style={{margin:"10px"}}/>
               </form>
             </div>
           </div>

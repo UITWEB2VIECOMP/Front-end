@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { MdArrowDropDownCircle } from 'react-icons/md';
-import { CiMenuKebab } from 'react-icons/ci';
 import '../styles/Dropdown.css';
 
 const Dropdown = () => {
@@ -19,7 +18,6 @@ const Dropdown = () => {
             className={`w-8 h-8 cursor-pointer transition-transform duration-300 ${show ? 'rotate-180' : ''}`} 
             onClick={toggleDropdown} 
           />
-          <CiMenuKebab className='w-8 h-8 cursor-pointer' />
         </div>
       </div>
       {

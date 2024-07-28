@@ -30,12 +30,14 @@ body.active-    dal {
     transition: 0.5s;
     animation-delay: 1ms;
 }
-
+.modal{
+    padding-top: 10px;
+}
 .modal, .overlay {
-    width: 100%;
+    
+    width: 85%;
     height: 100vh;
     top: 0;
-    left: 0;
     right: 0;
     bottom: 0;
     position: fixed;
@@ -46,26 +48,26 @@ body.active-    dal {
 }
 .modal-content {
     position: absolute;
+    height: 100vh;
+    width: 70%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #ccc;
+    background: white;
     border-radius: 10px;
     padding: 30px 30px;
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
 }
 
 .title-project {
     display: flex;
     align-items: center;
-    gap: 30px;
+    justify-content: space-between;
     color: black;
     font-weight: 500em;
-    font-size: larger;
-    margin-bottom: 10%;
+    font-size: 25px;
+    margin-bottom: 5%;
 }
 
 .close-modal {
@@ -90,4 +92,72 @@ body.active-    dal {
     transition: 0.5s;
     animation-delay: 0.5ms;
 
+}
+.form-create label{
+    font-size: 20px;
+    display: block;
+}
+.midform .other{
+    display: flex;
+    justify-content: space-between;
+}
+.midform textarea{
+    padding: 5px;
+    border: 1px solid;
+
+}
+.upperform{
+    display: flex;
+    justify-content: space-between;
+}
+.upperform input, .midform input{
+ border: 1px solid;
+ height: 50%;
+ width: 150%;
+ border-radius: 5px;
+ padding: 5px;
+}
+.midform input{
+    width: 100% !important;
+
+}
+.file-input {
+    border: none !important;
+}
+.datepicker .button{
+    justify-content: flex-end;
+}
+.datepicker .button, .datepicker .rdrCalendarWrapper{
+    display: block;
+}
+.datepicker .rdrCalendarWrapper{
+    position: absolute;
+    right: 0;
+}
+.file-input + label {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+}
+
+/* Hover and active states for custom file input button */
+.file-input + label:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.file-input + label:active {
+    background-color: #004085;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px);
 }
