@@ -2,162 +2,239 @@
 @tailwind components;
 @tailwind utilities;
 
-body.active-    dal {
-    overflow-y: hidden;
+body.active-modal {
+  overflow-y: hidden;
 }
 
 .btn {
-    border: 1px solid #080808;
+  border: 1px solid #080808;
 }
 
 .btn-modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    display: block;
-    font-size: 18px;
-    border: 2px solid black;
-    border-radius: 6px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: 2px solid black;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 .btn-modal:hover {
-    background-color: black;
-    border-radius: 6px;
-    color: white;
-    transform: scale(1.2);
-    transition: 0.5s;
-    animation-delay: 1ms;
+  background-color: black;
+  color: white;
+  transform: scale(1.2);
+  transition: 0.5s;
+  animation-delay: 1ms;
 }
-.modal{
-    padding-top: 10px;
+
+.modal {
+  padding-top: 10px;
 }
+
 .modal, .overlay {
-    
-    width: 85%;
-    height: 100vh;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    position: fixed;
+  width: 85%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
 }
 
 .overlay {
-    background: rgba(49,49,49,0.8);
+  background: rgba(49, 49, 49, 0.8);
+  width: 100%;
 }
+
 .modal-content {
-    position: absolute;
-    height: 100vh;
-    width: 70%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border-radius: 10px;
-    padding: 30px 30px;
-    display: flex;
-    flex-direction: column;
+  position: absolute;
+  height: auto;
+  max-height: 90vh;
+  overflow-y: auto;
+  width: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 10px;
+  padding: 30px 30px;
+  display: flex;
+  flex-direction: column;
 }
 
 .title-project {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: black;
-    font-weight: 500em;
-    font-size: 25px;
-    margin-bottom: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: black;
+  font-weight: 500;
+  font-size: 25px;
+  margin-bottom: 5%;
 }
 
 .close-modal {
-    display: flex;
-    align-items: center;
-    border: 2px solid black;
-    border-radius: 10%;
-    top: 10px;
-    right: 10px;
-    font-size: 25px;
-    background-color: tomato;
-    color: black;
-    cursor: pointer;
-    padding: 5px 10px;
-    margin-left: 100px;
-    
+  display: flex;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 10%;
+  font-size: 25px;
+  background-color: tomato;
+  color: black;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-left: 100px;
 }
 
 .close-modal:hover {
-    background-color: red;
-    transform: scale(1.2) ;
-    transition: 0.5s;
-    animation-delay: 0.5ms;
+  background-color: red;
+  transform: scale(1.2);
+  transition: 0.5s;
+  animation-delay: 0.5ms;
+}
 
+.form-create label {
+  font-size: 20px;
+  display: block;
 }
-.form-create label{
-    font-size: 20px;
-    display: block;
-}
-.midform .other{
-    display: flex;
-    justify-content: space-between;
-}
-.midform textarea{
-    padding: 5px;
-    border: 1px solid;
 
+.midform .other {
+  display: flex;
+  justify-content: space-between;
 }
-.upperform{
-    display: flex;
-    justify-content: space-between;
-}
-.upperform input, .midform input{
- border: 1px solid;
- height: 50%;
- width: 150%;
- border-radius: 5px;
- padding: 5px;
-}
-.midform input{
-    width: 100% !important;
 
+.midform textarea {
+  padding: 5px;
+  border: 1px solid;
 }
+
+.upperform {
+  display: flex;
+  justify-content: space-between;
+}
+
+.upperform input, .midform input {
+  border: 1px solid;
+  height: 50%;
+  width: 150%;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.midform input {
+  width: 100% !important;
+}
+
 .file-input {
-    border: none !important;
-}
-.datepicker .button{
-    justify-content: flex-end;
-}
-.datepicker .button, .datepicker .rdrCalendarWrapper{
-    display: block;
-}
-.datepicker .rdrCalendarWrapper{
-    position: absolute;
-    right: 0;
-}
-.file-input + label {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #ffffff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
+  border: none !important;
 }
 
-/* Hover and active states for custom file input button */
+.datepicker .button {
+  justify-content: flex-end;
+}
+
+.datepicker .button, .datepicker .rdrCalendarWrapper {
+  display: block;
+}
+
+.datepicker .rdrCalendarWrapper {
+  position: absolute;
+  right: 0;
+}
+
+.file-input + label {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+}
+
 .file-input + label:hover {
-    background-color: #0056b3;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  background-color: #0056b3;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .file-input + label:active {
-    background-color: #004085;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transform: translateY(1px);
+  background-color: #004085;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(1px);
+}
+
+.question-form {
+  margin-top: 20px;
+}
+
+.question-type {
+  margin-bottom: 20px;
+}
+
+.select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+.input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 10px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.checkbox {
+  margin-left: 10px;
+}
+
+.essay-input,
+.file-upload {
+  margin-top: 10px;
+}
+
+.textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.submit-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.submit-btn:active {
+  background-color: #004085;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(1px);
+}
+
+.multiple-choice .choice {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.choice-input {
+  width: calc(100% - 25px);
 }
