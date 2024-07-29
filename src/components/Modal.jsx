@@ -21,7 +21,7 @@ const QuestionForm = ({ questions, setQuestions }) => {
       file: null,
       image: null,
     };
-    setQuestions([...questions, newQuestion]);
+    setQuestions([...questions, newQuestion]); // Append the new question to the existing questions
   };
 
   const handleQuestionChange = (index, value) => {
@@ -67,19 +67,9 @@ const QuestionForm = ({ questions, setQuestions }) => {
     <div className="question-form">
       <div className="question-type">
         <label>Q. Type:</label>
-        <select
-          onChange={(e) => handleAddQuestion(e.target.value)}
-          className="select"
-          defaultValue=""
-        >
-          <option value="" disabled>Select question type</option>
-          <option value="multiple_choice">Multiple Choice</option>
-          <option value="essay">Essay</option>
-          <option value="file">File Submit</option>
-        </select>
-        <button type="button" onClick={() => handleAddQuestion('multiple_choice')} className="add-question-btn">
-          Add Multiple Choice Question
-        </button>
+        <button onClick={() => handleAddQuestion('multiple_choice')} className="type-btn">Multiple Choice</button>
+        <button onClick={() => handleAddQuestion('essay')} className="type-btn">Essay</button>
+        <button onClick={() => handleAddQuestion('file')} className="type-btn">File Submit</button>
       </div>
 
       {questions.map((question, index) => (
@@ -138,6 +128,9 @@ const QuestionForm = ({ questions, setQuestions }) => {
               />
             </div>
           )}
+          <button type="button" onClick={() => handleAddQuestion(question.type)} className="add-question-btn">
+            Add Another Question
+          </button>
         </div>
       ))}
     </div>
@@ -186,7 +179,7 @@ const Modal = () => {
                 <IoMdClose />
               </button>
             </div>
-            <form className="form-create">
+            <form className="form-create" onSubmit={(e) => e.preventDefault()}>
               <div className="upperform">
                 <div>
                   <label htmlFor="name">Name: </label>
@@ -194,7 +187,7 @@ const Modal = () => {
                 </div>
                 <div className='datepicker'>
                   <button type="button" onClick={toggleDatePicker}>Select Start Date - End Date</button>
-                  {datepicker &&(
+                  {datepicker && (
                     <DateRange
                       editableDateInputs={true}
                       onChange={item => setState([item.selection])}
@@ -220,7 +213,7 @@ const Modal = () => {
                   </div>
                 </div>
               </div>
-              <hr style={{margin:"10px"}}/>
+              <hr style={{ margin: "10px" }} />
               <QuestionForm questions={questions} setQuestions={setQuestions} />
               <button type="button" className="submit-btn" onClick={() => console.log({ questions })}>Submit</button>
             </form>

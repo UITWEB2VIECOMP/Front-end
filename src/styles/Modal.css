@@ -177,10 +177,18 @@ body.active-modal {
   margin-bottom: 20px;
 }
 
-.select {
+.type-btn {
+  margin: 5px;
+  padding: 10px 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.type-btn:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .input {
