@@ -12,6 +12,9 @@ import Competition from './Competition';
 import Profile from './Profile';
 import MyContest from './MyContest';
 import ManageContest from './ManageContest';
+import Contest from './Contest';
+import ContestModify from './ContestModify';
+
 
 const Home = () => {
   const [role, setRole] = useState(null);
@@ -65,21 +68,26 @@ const Home = () => {
   }
 
   return (
+    
     <div className="home-container">
       {role && id ? <Aside userInfo= {userInfo} role={role} /> : <div>Loading...</div>}
       <div className="home-content">
           <Routes>
             <Route path='/' element={<H0me userId={id} userInfo={userInfo} role={role}></H0me>} ></Route>
             <Route path='/profile' element={<Profile  userInfo= {userInfo}role={role}></Profile>}></Route>
-            <Route  path='/competition' element={<Competition></Competition>}></Route>
             <Route path='/your-contest' element={<MyContest />} />
             <Route path='/manage-contest' element={<ManageContest />} />
+
+            <Route  path='/competition' element={<Competition userId={id} role={role} ></Competition>}></Route>
             <Route path='/settings' element={<Settings  userId={id} role={role}></Settings>}>
             <Route index element={<ProfileSettings userId={id} role={role} />} />
-            <Route  path="profile" element={<ProfileSettings userId={id} role={role}  />} />
-            <Route path="password" element={<ChangePasssword userId={id} role={role} />} />
+              <Route  path="profile" element={<ProfileSettings userId={id} role={role}  />} />
+              <Route path="password" element={<ChangePasssword userId={id} role={role} />} />
             </Route>
-          </Routes>
+            <Route path='/contest/:contest_id' element={<Contest userId={id} role={role}></Contest>}>
+            </Route>
+            <Route  path="/contest/:contest_id/modify" element={<ContestModify userId={id} role={role}  />} />
+          </Routes > 
       </div>
     </div>
   );

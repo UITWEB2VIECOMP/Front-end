@@ -10,12 +10,21 @@ body, html {
 }
 
 .comp-container {
-  display: flex;
-  overflow: hidden;
-  border-radius: 30px;
-  background-color: gray;
+  margin: auto;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 100%;
+  width: 100%; 
+  min-height: 100%;
+  box-sizing: border-box; 
 }
-
+@media (min-height: 900px) {
+  .comp-container{
+    height: 100vh;
+  }
+}
 .sidebar {
   width: 250px;
   transition: width 0.3s;

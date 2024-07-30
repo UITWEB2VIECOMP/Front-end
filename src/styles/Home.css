@@ -11,8 +11,9 @@ body, html {
   
   .home-container {
     display: flex;
-    height: 100vh;
+    min-height: 100%;
     overflow: hidden;
+    box-sizing: border-box;
   }
   
   .sidebar {

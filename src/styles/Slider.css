@@ -18,7 +18,9 @@
   align-items: center;
   box-sizing: border-box;
 }
-
+.carousel-wrapper a{
+  text-decoration: none !important;
+}
 .card {
   /* background-color: #fff; */
   border-radius: 10px;

@@ -1,76 +1,27 @@
-/* Container styling */
-.settings-container {
+.contest-modify-container {
     margin: auto;
     background: #ffffff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-}
+    max-width: 100%;
+    width: 100%; 
+    box-sizing: border-box; 
 
-/* Heading styling */
-.settings-container h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
 }
-
-/* Navigation styling */
-nav {
-    margin-bottom: 20px;
-}
-
-nav a {
-    margin-right: 15px;
-    text-decoration: none;
-    color: #007bff;
-    font-size: 16px;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-/* Section styling */
-.section {
-    margin-bottom: 30px; /* Add space between sections */
-}
-
-.section h2 {
-    font-size: 20px;
-    margin-bottom: 15px;
-    color: #333;
-}
-
-/* Group styling */
-.setting-group {
-    margin-top: 25px;
-    margin-bottom: 15px;
-}
-
-/* Input and label styling */
-.setting-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #555;
-}
-
-.setting-group input {
+.date-range-picker-container {
+    display: none; /* Hide by default */
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 14px;
-    transition: border-color 0.3s;
-}
-
-.setting-group input:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-/* Label styling */
+    margin-top: 10px;
+  }
+  
+  .date-range-picker-container.show {
+    display: flex; /* Show when the button is clicked */
+  }
+  
 .avatar-label {
     margin-bottom: 10px;
     font-weight: bold;
@@ -81,7 +32,14 @@ nav a:hover {
 .file-input {
     border: none !important;
 }
-
+.contest-modify-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-top: 10px;
+  }
 .file-input + label {
     display: inline-block;
     padding: 10px 20px;
@@ -111,7 +69,7 @@ nav a:hover {
 }
 
 /* Avatar preview styling */
-.avatar-preview {
+.img-preview {
     margin-top: 20px;
     width: 150px;
     height: 150px;
@@ -119,8 +77,50 @@ nav a:hover {
     object-fit: cover;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+.img-label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #555;
+}
+.contest-modify-group{
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+/* Input and label styling */
+.contest-modify-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.contest-modify-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.contest-modify-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.contest-modify-container hr {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.contest-modify-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
 /* Button styling */
-.setting-btn {
+.modify-btn {
     display: inline-block !important;
     padding: 5px 10px !important;
     font-size: 16px !important;
@@ -134,27 +134,27 @@ nav a:hover {
 }
 
 /* Hover state */
-.setting-btn:hover {
+.modify-btn:hover {
     background-color: #0056b3 !important;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* Active state */
-.setting-btn:active {
+.modify-btn:active {
     background-color: #004085 !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
     transform: translateY(1px) !important;
 }
 
 /* Disabled state */
-.setting-btn:disabled {
+.modify-btn:disabled {
     background-color: #cccccc!important ;
     cursor: not-allowed !important;
     box-shadow: none !important;
 }
 
 /* Focus state for accessibility */
-.setting-btn:focus {
+.modify-btn:focus {
     outline: none !important;
     box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.5) !important;
 }
