@@ -11,7 +11,7 @@ const Dropdown = () => {
 
   return (
     <>
-      <div className="contest h-16 flex items-center justify-between px-8 rounded-xl">
+      <div className="contest-dropdown h-16 flex items-center justify-between px-8 rounded-xl">
         <h1>Contest 1</h1>
         <div className='flex flex-row items-center gap-x-3'>
           <MdArrowDropDownCircle 
