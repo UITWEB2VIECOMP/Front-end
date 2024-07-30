@@ -76,7 +76,7 @@ const Home = () => {
             <Route path='/' element={<H0me userId={id} userInfo={userInfo} role={role}></H0me>} ></Route>
             <Route path='/profile' element={<Profile  userInfo= {userInfo}role={role}></Profile>}></Route>
             <Route path='/your-contest' element={<MyContest />} />
-            <Route path='/manage-contest' element={<ManageContest />} />
+            <Route path='/manage-contest' element={<ManageContest userId={id} role={role}/>} />
 
             <Route  path='/competition' element={<Competition userId={id} role={role} ></Competition>}></Route>
             <Route path='/settings' element={<Settings  userId={id} role={role}></Settings>}>
