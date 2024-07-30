@@ -10,6 +10,8 @@ import ChangePasssword from '../../src_settings/changePasssword';
 import H0me from './Main';
 import Competition from './Competition';
 import Profile from './Profile';
+import MyContest from './MyContest';
+import ManageContest from './ManageContest';
 import Contest from './Contest';
 import ContestModify from './ContestModify';
 
@@ -73,6 +75,9 @@ const Home = () => {
           <Routes>
             <Route path='/' element={<H0me userId={id} userInfo={userInfo} role={role}></H0me>} ></Route>
             <Route path='/profile' element={<Profile  userInfo= {userInfo}role={role}></Profile>}></Route>
+            <Route path='/your-contest' element={<MyContest />} />
+            <Route path='/manage-contest' element={<ManageContest />} />
+
             <Route  path='/competition' element={<Competition userId={id} role={role} ></Competition>}></Route>
             <Route path='/settings' element={<Settings  userId={id} role={role}></Settings>}>
             <Route index element={<ProfileSettings userId={id} role={role} />} />

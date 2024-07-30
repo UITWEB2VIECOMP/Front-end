@@ -14,6 +14,7 @@ const Slider = ({ target, page }) => {
   const navigate = useNavigate();
   const { role, userId } = page==="compe" ? useContext(Userinfo):useContext(Userinfo2)
 
+
   const [contestData, setContestData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -69,7 +70,6 @@ const Slider = ({ target, page }) => {
       </Link>
     </SwiperSlide>
   ));
-
   return (
     <div className="carousel-wrapper">
       <Swiper

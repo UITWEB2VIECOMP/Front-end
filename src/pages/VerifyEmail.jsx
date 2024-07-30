@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import axios from 'axios'
+import axiosUrl from '../../config/AxiosConfig'
 
 const VerifyEmail = () => {
 
     const { id, token } = useParams()
     const [verifyStatus, setverifyStatus] = useState('')
-
-    const axiosUrl = axios.create({
-        baseURL: 'https://api-74ym.onrender.com'
-    })
 
     useEffect(() => {
         // const { id, token } = match.params

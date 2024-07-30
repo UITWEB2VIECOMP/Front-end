@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.contest {
+  border: 1px solid #080808;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease-in-out;
+  width: 650px;
+}
+
+.dropdown-content {
+  border: 1px solid #080808;
+  background-color: #f9f9f9;
+}
+
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.comment-btn, .upload-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.comment-btn {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.upload-btn {
+  background-color: #aad1e6;
+  color: white;
+}
+
+.icon {
+  font-size: 1.2em;
+}
+
+.comment-section {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.comment-input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+}
+
+.send-btn {
+  background-color: #ddd;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}

@@ -2,6 +2,7 @@ import React, { createContext } from 'react';
 import '../styles/Competition.css';
 import Slider from '../components/Slider';
 
+
 export const Userinfo = createContext();
 
 const Competition = ({ role, userId }) => {
