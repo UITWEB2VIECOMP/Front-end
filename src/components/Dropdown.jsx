@@ -62,7 +62,7 @@ const Dropdown = ({userId, role}) => {
       {show[data.contest_id] && (
         data.submitted_participant.length > 0 ? (
           data.submitted_participant.map((participant) => (
-            <Link to={`/contest/submission/${participant.contest_participant_id}`} key={participant.contest_participant_id}>
+            <Link to={`/contest/${data.contest_id}/submission/${participant.contest_participant_id}`} key={participant.contest_participant_id}>
               <div className='dropdown-content h-16 flex items-center rounded-xl justify-between px-8'>
                 <h1>Submitted</h1>
                 <div className=''>
