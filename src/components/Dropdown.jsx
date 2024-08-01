@@ -4,6 +4,7 @@ import '../styles/Dropdown.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosUrl from '../../config/AxiosConfig';
 import { format } from 'date-fns';
+import axios from 'axios';
 const Dropdown = ({userId, role}) => {
   const [show, setShow] = useState({});
   const [manageData, setManageData] = useState([]);
@@ -49,14 +50,14 @@ const Dropdown = ({userId, role}) => {
   }
 
   const manageItem = manageData.map((data) => (
-    <div key={data.contest_id} style={{marginTop:"10px"}} className="contest-dropdown h-16 flex items-center justify-between px-8 rounded-xl">
+    <div key={data.contest_id} style={{ marginTop: "10px" }} className="contest-dropdown h-16 flex items-center justify-between px-8 rounded-xl">
       <Link to={`/contest/${data.contest_id}`} className="flex-grow">
         <h1>{data.contestName}</h1>
       </Link>
       <div className='flex flex-row items-center gap-x-3'>
-        <MdArrowDropDownCircle 
-          className={`w-8 h-8 cursor-pointer transition-transform duration-300 ${show[data.contest_id] ? 'rotate-180' : ''}`} 
-          onClick={() => toggleDropdown(data.contest_id)} 
+        <MdArrowDropDownCircle
+          className={`w-8 h-8 cursor-pointer transition-transform duration-300 ${show[data.contest_id] ? 'rotate-180' : ''}`}
+          onClick={() => toggleDropdown(data.contest_id)}
         />
       </div>
       {show[data.contest_id] && (
@@ -65,9 +66,7 @@ const Dropdown = ({userId, role}) => {
             <Link to={`/contest/${data.contest_id}/submission/${participant.contest_participant_id}`} key={participant.contest_participant_id}>
               <div className='dropdown-content h-16 flex items-center rounded-xl justify-between px-8'>
                 <h1>Submitted</h1>
-                <div className=''>
-                  <p>{format(new Date(participant.submission_date), 'MMMM dd, yyyy')}</p>
-                </div>
+                <p>{format(new Date(participant.latest_submission_date), 'MMM dd, yyyy')}</p>
               </div>
             </Link>
           ))

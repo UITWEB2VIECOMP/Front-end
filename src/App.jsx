@@ -16,6 +16,7 @@ import MyContest from './pages/MyContest'
 import ManageContest from './pages/ManageContest'
 import Contest from './pages/Contest'
 import ContestModify from './pages/ContestModify'
+import DoContest from './pages/DoContest'
 
 const App = () => {
 
@@ -42,7 +43,9 @@ const App = () => {
               <Route path='/contest/:contest_id' element={<Contest></Contest>}>
               </Route>
               <Route path="/contest/:contest_id/modify" element={<ContestModify />} />
+              <Route path="/contest/:contest_id/do-contest" element={<DoContest />} />
           </Route>
+          <Route path='/*' element={<div>Page Not Found</div>}></Route>
         </Routes>
       </BrowserRouter>
     </>

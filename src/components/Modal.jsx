@@ -76,16 +76,6 @@ const QuestionForm = ({ questions, setQuestions }) => {
               ))}
             </div>
           )}
-          {question.type === 'essay' && (
-            <div className="essay-input">
-              <label>Essay:</label>
-              <textarea
-                value={question.essay}
-                onChange={(e) => handleEssayChange(index, e.target.value)}
-                className="textarea"
-              />  
-            </div>
-          )}
           <button type="button" onClick={() => handleAddQuestion(question.type)} className="add-question-btn">
             Add Another Question
           </button>

@@ -11,7 +11,7 @@ export default function Contest({ role, userId }) {
     const [contest_data, setContest_data] = useState();
     const [isparticipated, setParticipated] = useState();
     const [ishosted, sethosted] = useState();
-
+    const [isSubmitted, setIsSubmitted]= useState();
     const navigate = useNavigate();
     const fetchContest = async (id, role) => {
       try {
@@ -25,10 +25,11 @@ export default function Contest({ role, userId }) {
             console.log('API Response:', res);
   
             if (role === 'student') {
-                const { data, participated} = res.data;
+                const { data, participated, submitted} = res.data;
                 setParticipated(participated)
                 setContest_data(data)
-                console.log('Student Data:', { contest_data, isparticipated });
+                setIsSubmitted(submitted === "submitted")
+                console.log('Student Data:', { contest_data, isparticipated, submitted });
 
             } else {
                 const { data, hosted} = res.data;
@@ -83,7 +84,14 @@ export default function Contest({ role, userId }) {
             navigate('/error');
         }
     };
-  return (
+    const getDate = ()=>{
+        const currentDate = new Date();
+        const currentDateString = currentDate.toISOString().slice(0, 19).replace('T', ' '); 
+
+        const currentDateObject = new Date(currentDateString + 'Z'); 
+        return currentDateObject
+    }
+      return (
     <div className="contest">
     <header>
         <div className="contest-header">
@@ -94,9 +102,9 @@ export default function Contest({ role, userId }) {
                 {contest_data.contest_name}
                 .
                 {
-                    new Date().toISOString().slice(0, 19).replace('T', ' ') < contest_data.start_date ?(
+                    getDate() < new Date(contest_data.start_date) ?(
                         <>UpComing</>
-                    ):  new Date().toISOString().slice(0, 19).replace('T', ' ') > contest_data.end_date ?(
+                    ):  getDate() > new Date(contest_data.end_date) ?(
                         <>Completed</>
                     ):(
                         <>OnGoing</>
@@ -107,12 +115,16 @@ export default function Contest({ role, userId }) {
                 !isparticipated ? (
                     <button onClick={(e) => joinContest(e)} className="join-btn">Join Competition</button>
                 ) : (
-                    new Date().toISOString().slice(0, 19).replace('T', ' ') < contest_data.start_date ? (
+                    getDate()  < new Date(contest_data.start_date) ? (
                         <button className="join-btn" disabled>Upcoming</button>
-                    ) : new Date().toISOString().slice(0, 19).replace('T', ' ') > contest_data.end_date ? (
+                    ) : getDate()  > new Date(contest_data.end_date) ? (
                         <button className="join-btn" disabled>Completed</button>
                     ) : (
-                        <button className="join-btn">Do Competition</button>
+                        isSubmitted?(
+                            <button disabled  className="join-btn">Submitted</button>
+                        ):(
+                            <button onClick={()=>navigate('do-contest')} className="join-btn">Do Competition</button>
+                        )
                     )
                 )
             ) : (
@@ -161,7 +173,7 @@ export default function Contest({ role, userId }) {
                 </div>
                 <div className='CompetitionDate'>
                     <h4>Start Date - End Date</h4>
-                    <p>{format(new  Date(contest_data.start_date), 'yyyy-MM-dd')} - {format(new  Date(contest_data.end_date), 'yyyy-MM-dd')}</p>
+                    <p>{format(new  Date(new Date(contest_data.start_date)), 'yyyy-MM-dd')} - {format(new  Date(new Date(contest_data.end_date)), 'yyyy-MM-dd')}</p>
                 </div>
                 <div className='CompetitionParti'>
                     <h4>Participation</h4>

@@ -1,19 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 .contest-dropdown {
   border: 1px solid #080808;
   background-color: #f9f9f9;
   transition: all 0.3s ease-in-out;
   width: 650px;
+  position: relative; /* Make the dropdown content position relative to this container */
 }
 
 .dropdown-content {
-  border: 1px solid #080808;
+  position: absolute; /* Position it absolutely within the .contest-dropdown container */
+  top: 100%; /* Place it below the .contest-dropdown */
+  left: 0; /* Align it to the left edge */
+  width: 100%; /* Full width of the .contest-dropdown */
   background-color: #f9f9f9;
+  border: 1px solid #080808;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  z-index: 10; /* Ensure it appears above other content */
+  display: flex;
+  flex-direction: row;
 }
-
+.dropdown-content a {
+  text-decoration: none; /* Remove underline from links */
+  color: #333; /* Set text color */
+}
 .title {
   font-size: 1.5em;
   font-weight: bold;
