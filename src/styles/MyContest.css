@@ -14,3 +14,14 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+.mc-container .my-contest-dropdown{
+    border: 1px solid #080808;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease-in-out;
+    width: 650px;
+    position: relative;
+}
+.mc-container .my-contest-dropdown a {
+    text-decoration: none; /* Remove underline from links */
+    color: #333; /* Set text color */
+  }

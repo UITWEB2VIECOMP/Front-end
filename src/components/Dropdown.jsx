@@ -51,7 +51,7 @@ const Dropdown = ({userId, role}) => {
 
   const manageItem = manageData.map((data) => (
     <div key={data.contest_id} style={{ marginTop: "10px" }} className="contest-dropdown h-16 flex items-center justify-between px-8 rounded-xl">
-      <Link to={`/contest/${data.contest_id}`} className="flex-grow">
+      <Link to={`/contest/${data.contest_id}`} style={{textDecoration:"none"}} className="flex-grow">
         <h1>{data.contestName}</h1>
       </Link>
       <div className='flex flex-row items-center gap-x-3'>

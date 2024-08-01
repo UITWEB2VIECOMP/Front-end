@@ -30,6 +30,8 @@ body.active-modal {
 }
 
 .modal {
+  position: absolute !important;
+  z-index: 12;
   padding-top: 10px;
 }
 
