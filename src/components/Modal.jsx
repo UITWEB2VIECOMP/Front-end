@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../styles/Modal.css';
 import { FaPlus } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
@@ -115,6 +115,7 @@ const Modal = ({userId, role}) => {
   } else {
     document.body.classList.remove('active-modal');
   }
+  
   function convert(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),

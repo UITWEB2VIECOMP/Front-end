@@ -15,6 +15,7 @@ import ManageContest from './ManageContest';
 import Contest from './Contest';
 import ContestModify from './ContestModify';
 import DoContest from './DoContest';
+import Grade from './Grade';
 
 
 const Home = () => {
@@ -89,6 +90,7 @@ const Home = () => {
             </Route>
             <Route  path="/contest/:contest_id/modify" element={<ContestModify userId={id} role={role}  />} />
             <Route  path="/contest/:contest_id/do-contest" element={<DoContest userId={id} role={role}  />} />
+            <Route path='/contest/:contest_id/submission/:contest_participant_id' element={<Grade />} />
           </Routes > 
       </div>
     </div>
