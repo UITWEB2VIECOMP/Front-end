@@ -90,7 +90,7 @@ const Home = () => {
             </Route>
             <Route  path="/contest/:contest_id/modify" element={<ContestModify userId={id} role={role}  />} />
             <Route  path="/contest/:contest_id/do-contest" element={<DoContest userId={id} role={role}  />} />
-            <Route path='/contest/:contest_id/submission/:contest_participant_id' element={<Grade />} />
+            <Route path='/contest/:contest_id/submission/:contest_participant_id' element={<Grade userId={id} role={role} />} />
           </Routes > 
       </div>
     </div>

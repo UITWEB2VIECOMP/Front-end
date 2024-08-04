@@ -50,20 +50,22 @@ const Dropdown = ({userId, role}) => {
   }
 
   const manageItem = manageData.map((data) => (
-    <div key={data.contest_id} style={{ marginTop: "10px" }} className="contest-dropdown h-16 flex items-center justify-between px-8 rounded-xl">
-      <Link to={`/contest/${data.contest_id}`} style={{textDecoration:"none"}} className="flex-grow">
-        <h1>{data.contestName}</h1>
-      </Link>
-      <div className='flex flex-row items-center gap-x-3'>
-        <MdArrowDropDownCircle
-          className={`w-8 h-8 cursor-pointer transition-transform duration-300 ${show[data.contest_id] ? 'rotate-180' : ''}`}
-          onClick={() => toggleDropdown(data.contest_id)}
-        />
+    <div key={data.contest_id} style={{ marginTop: "10px" }} className="contest-dropdown rounded-xl">
+      <div className='flex h-16 items-center justify-between px-8 rounded-xl contest'>
+        <Link to={`/contest/${data.contest_id}`} style={{textDecoration:"none"}} className="flex-grow">
+          <h1>{data.contestName}</h1>
+        </Link>
+        <div className='flex flex-row items-center gap-x-3'>
+          <MdArrowDropDownCircle
+            className={`w-8 h-8 cursor-pointer transition-transform duration-300 ${show[data.contest_id] ? 'rotate-180' : ''}`}
+            onClick={() => toggleDropdown(data.contest_id)}
+          />
+        </div>
       </div>
       {show[data.contest_id] && (
         data.submitted_participant.length > 0 ? (
           data.submitted_participant.map((participant) => (
-            <Link to={`/contest/${data.contest_id}/submission/${participant.contest_participant_id}`} key={participant.contest_participant_id}>
+            <Link style={{textDecoration:"none", color:"#333"}} to={`/contest/${data.contest_id}/submission/${participant.contest_participant_id}`} key={participant.contest_participant_id}>
               <div className='dropdown-content h-16 flex items-center rounded-xl justify-between px-8'>
                 <h1>Submitted</h1>
                 <p>{format(new Date(participant.latest_submission_date), 'MMM dd, yyyy')}</p>

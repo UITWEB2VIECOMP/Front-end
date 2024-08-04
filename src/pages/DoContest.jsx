@@ -35,6 +35,14 @@ export default function DoContest({ userId, role }) {
         };
 
         fetchQuestions();
+        const initialAnswers = questions.reduce((acc, question) => {
+            acc[question.question_id] = {
+                type: question.question_type_id === 1 ? "multiple-choice" : question.question_type_id === 2 ? "essay" : "file", 
+                value:null
+            };
+            return acc;
+        }, {});
+        setAnswers(initialAnswers);
     }, [contest_id, userId, role]);
 
     if (loading) {
@@ -121,7 +129,9 @@ export default function DoContest({ userId, role }) {
             });
             formData.append("answers", JSON.stringify(answers));
             formData.append("contest_id", contest_id);
-
+            for (let entry of formData.entries()) {
+                console.log(entry[0], entry[1]);
+            }            
             const res = await axiosUrl.post(`/api/contest/submission`,formData ,{
                 headers: {
                     'Content-Type': 'multipart/form-data',

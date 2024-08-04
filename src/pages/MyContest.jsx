@@ -19,7 +19,7 @@ const MyContest = ({ userId, role }) => {
       setMyContestData(res.data.data);
     } catch (err) {
       console.error('Verification failed: ', err);
-      // navigate('/error');
+      navigate('/error');
     } finally {
       setLoading(false); 
     }
@@ -55,12 +55,12 @@ const MyContest = ({ userId, role }) => {
                       <div style={{ color: "red" }}>NOT GRADE</div>
                   )
               ) : (
-                  new Date() < new Date(data.start_date) ? (
+                  getDate() < new Date(data.start_date) ? (
                       <div style={{ color: "red" }} >UPCOMING</div>
-                  ) : new Date() > new Date(data.end_date) ? (
+                  ) : getDate > new Date(data.end_date) ? (
                       <div style={{ color: "red" }}>COMPLETED</div>
                   ) : (
-                      <div style={{ color: "yellow" }}>NOT SUBMITTED</div>
+                      <div style={{ color: "yellowgreen" }}>NOT SUBMITTED</div>
                   )
               )}
           </div>

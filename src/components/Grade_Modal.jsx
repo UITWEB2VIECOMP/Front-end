@@ -1,12 +1,35 @@
 import React, { useState } from 'react'
 import { IoMdClose } from "react-icons/io";
 import '../styles/Grade_Modal.css'
+import { useNavigate } from 'react-router-dom';
+import axiosUrl from '../../config/AxiosConfig';
 
-
-const Grade_Modal = () => {
+const Grade_Modal = ({userId, role , contest_id, contest_participant_id}) => {
   const [modal, setModal] = useState(false)
   const [grade, setGrade] = useState('');
+  const [err, setErr] = useState('');
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
+  const submitGrade = async(grade)=>{
+    try {
+      setLoading(true)
+      const res = await axiosUrl.post(`/api/contest/grading`,{grade, contest_id,contest_participant_id} ,{
+          headers: {
+              user_id: userId,
+              role: role,
+          },
+      });
+      console.log(res); 
 
+      setErr('');
+  } catch (error) {
+      console.error('Change error: ', error);
+      setErr(error.response?.data?.message || 'An error occurred');
+  }finally {
+      setLoading(false);
+      navigate(`/manage-contest`);
+  }
+  }
   const handleSubmit = () => {
     submitGrade(grade);
     toggleModal();
@@ -51,6 +74,8 @@ const Grade_Modal = () => {
               </div>
               <button type="button" className="submit-btn" onClick={handleSubmit}>Submit</button>
             </form>
+            {err && <div className="error-message">{err}</div>}
+            {loading && <div className="loading-message">Loading...</div>}
           </div>
         </div>
       )}
