@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body.active-modal {
+  overflow-y: hidden;
+}
+
+.modal {
+  position: absolute !important;
+  z-index: 12;
+  padding-top: 10px;
+}
+
+.modal, .overlay {
+  width: 85%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.overlay {
+  background: rgba(49, 49, 49, 0.8);
+  width: 100%;
+}
+
+.modal-content {
+  position: absolute;
+  height: auto;
+  max-height: 90vh;
+  overflow-y: auto;
+  width: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 10px;
+  padding: 30px 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title-project {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: black;
+  font-weight: 500;
+  font-size: 25px;
+  margin-bottom: 5%;
+}
+
+.close-modal {
+  display: flex;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 10%;
+  font-size: 25px;
+  background-color: tomato;
+  color: black;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-left: 100px;
+}
+
+.close-modal:hover {
+  background-color: red;
+  transform: scale(1.2);
+  transition: 0.5s;
+  animation-delay: 0.5ms;
+}
+
+.form-create label {
+  font-size: 20px;
+  display: block;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 10px;
+  width: 100%;
+}
+
+.submit-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.submit-btn:active {
+  background-color: #004085;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(1px);
+}

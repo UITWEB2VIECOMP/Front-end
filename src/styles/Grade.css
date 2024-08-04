@@ -1,0 +1,61 @@
+.grade-container {
+    margin: auto;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 100%;
+    width: 100%; 
+    min-height: 100%;
+    box-sizing: border-box;      
+}
+
+@media (min-height: 900px) {
+    .grade-container {
+      height: 100vh;
+    }
+}
+
+.question-item .multiple_choice_form{
+  display: flex;
+  gap: 23%;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  justify-content: center;
+}
+
+.question-item .multiple_choice_form div{
+  font-size: 18px;
+}
+
+.question-item .multiple_choice_form input{    
+  transform: scale(1.5); 
+  margin-right: 10px;
+}
+
+.question-item hr{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.question-item label{
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.question-item p{
+  font-size: 18px;
+}
+
+.essay-input input{
+  margin-top: 20px;
+}
+
+.textarea {
+  width: 100%;
+  height: 150px;
+}
+
+.file-input {
+  margin-top: 30px;
+}
