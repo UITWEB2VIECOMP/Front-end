@@ -3,7 +3,7 @@ import '../styles/ManageContest.css'
 import Modal from '../components/Modal'
 import Dropdown from '../components/Dropdown'
 
-const ManageContest = ({userId, role}) => {
+const ManageContest = ({token, role}) => {
   return (
     <>
       <div className='w-full h-full  flex items-center mn-container flex-col'>
@@ -11,10 +11,10 @@ const ManageContest = ({userId, role}) => {
           <h1>Manage contest</h1>
         </div>
         <div className='w-full flex justify-end px-8'>
-          <Modal userId={userId} role={role}/>
+          <Modal token={token} role={role}/>
         </div>
         <div className=''>
-          <Dropdown userId={userId} role={role}/>
+          <Dropdown token={token} role={role}/>
         </div>
       </div>
     </>

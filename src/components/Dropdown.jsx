@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axiosUrl from '../../config/AxiosConfig';
 import { format } from 'date-fns';
 import axios from 'axios';
-const Dropdown = ({userId, role}) => {
+const Dropdown = ({token, role}) => {
   const [show, setShow] = useState({});
   const [manageData, setManageData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,13 +19,12 @@ const Dropdown = ({userId, role}) => {
     }));
   }
 
-  const fetchManageData = async (id, role) => {
+  const fetchManageData = async (token, role) => {
     try {
       console.log(id);
       const res = await axiosUrl.get(`/api/contest/get-manage-info`, {
         headers: {
-          user_id: id,
-          role: role,
+          token: token,
         },
       });
       setManageData(res.data.data);
@@ -34,16 +33,20 @@ const Dropdown = ({userId, role}) => {
     } catch (err) {
       console.error('Verification failed: ', err);
       setLoading(false);
+      if (err.response?.data?.message === "Token has expired") {
+        localStorage.removeItem('token');
+        navigate('/login');
+      }
     }
   };
   
   useEffect(() => {
-    if (!role || !userId) {
+    if (!role || !token) {
       navigate('/login');
     } else {
-      fetchManageData(userId, role);
+      fetchManageData(token);
     }
-  }, [role, userId, navigate]);
+  }, [role, token, navigate]);
 
   if (loading) {
     return <div>Loading...</div>;

@@ -7,16 +7,16 @@ import Slider from '../components/Slider';
 import axiosUrl from '../../config/AxiosConfig';
 import { useNavigate } from 'react-router-dom';
 export const Userinfo2 = createContext()
-const h0me =({role, userInfo, userId}) => {
+const h0me =({role, userInfo, token}) => {
+    
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true);
     const [homeInfo,setHomeInfo]=useState()
-    const fetchHomeInfo =  async({userId,role})=>{
+    const fetchHomeInfo =  async({token})=>{
         try {
             const res =  await axiosUrl.get("/api/homepage/home-info",{
                 headers:{
-                    user_id: userId,
-                    role: role,
+                    token: token,
                 }
             })   
             setHomeInfo(res.data.data);
@@ -25,16 +25,20 @@ const h0me =({role, userInfo, userId}) => {
         } catch (error) {
             console.error('Verification failed: ', error);
             setLoading(false);
+            if (error.response?.data?.message === "Token has expired") {
+                localStorage.removeItem('token');
+                navigate('/login');
+              }
         }
         
     }
 useEffect(() => {
-    if (!role || !userId) {
+    if (!role || !token) {
         navigate('/login');
     } else {
-        fetchHomeInfo({userId, role});
+        fetchHomeInfo({token});
     }
-    }, [role, userId, navigate]);
+    }, [role, token, navigate]);
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -96,7 +100,7 @@ useEffect(() => {
     </div>)
     }
     <div style={{marginTop:"50px"}}>
-        <Userinfo2.Provider value={{role, userId}}>
+        <Userinfo2.Provider value={{role, token}}>
             <div className="ongoing-comp" page="main">
                 <h1>ONGOING</h1>
                 <Slider target="ongoing" />

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import axiosUrl from '../../config/AxiosConfig';
 
-export default function DoContest({ userId, role }) {
+export default function DoContest({ token, role }) {
     const [answers, setAnswers] = useState({});
     const [questions, setQuestions] = useState([]);
     const { contest_id } = useParams();
@@ -20,8 +20,7 @@ export default function DoContest({ userId, role }) {
             try {
                 const res = await axiosUrl.get(`/api/contest/do-contest/${contest_id}`, {
                     headers: {
-                        user_id: userId,
-                        role: role,
+                        token: token,
                     },
                 });
                 setQuestions(res.data.data);
@@ -30,7 +29,12 @@ export default function DoContest({ userId, role }) {
             } catch (error) {
                 console.error('Verification failed: ', error);
                 setLoading(false);
-                navigate("/error")
+                if (error.response?.data?.message === "Token has expired") {
+                    localStorage.removeItem('token');
+                    navigate('/login');
+                }else{
+                    navigate('/error');
+                }
             }
         };
 
@@ -135,8 +139,7 @@ export default function DoContest({ userId, role }) {
             const res = await axiosUrl.post(`/api/contest/submission`,formData ,{
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    user_id: userId,
-                    role: role,
+                    token: token,
                 },
             });
             console.log(res); 
@@ -145,6 +148,10 @@ export default function DoContest({ userId, role }) {
         } catch (error) {
             console.error('Change error: ', error);
             setErr(error.response?.data?.message || 'An error occurred');
+            if (error.response?.data?.message === "Token has expired") {
+                localStorage.removeItem('token');
+                navigate('/login');
+            }
         }finally {
             setLoading(false);
             navigate(`/contest/${contest_id}`);

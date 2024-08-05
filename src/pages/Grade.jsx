@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Grade_Modal from '../components/Grade_Modal';
 import axiosUrl from '../../config/AxiosConfig';
 
-export default function Grade({userId, role}) {
+export default function Grade({token, role}) {
     const navigate = useNavigate()
     const [answers, setAnswers] = useState([]);
     const { contest_id, contest_participant_id } = useParams();
@@ -15,24 +15,28 @@ export default function Grade({userId, role}) {
     }, [answers]);
     
     useEffect(() => {
-        const fetchSubmitted = async (id, role) => {
+        const fetchSubmitted = async (token, role) => {
             try {
               const res = await axiosUrl.get(`/api/contest/get-submitted/${contest_id}/${contest_participant_id}`, {
                 headers: {
-                  user_id: id,
-                  role: role,
+                    token: token,
                 },
               });
               setAnswers(res.data.data);
             } catch (err) {
               console.error('Verification failed: ', err);
-              navigate('/error');
+              if (err.response?.data?.message === "Token has expired") {
+                localStorage.removeItem('token');
+                navigate('/login');
+              }else{
+                navigate('/error');
+              }
             } finally {
               setLoading(false); 
             }
           };
-        if (userId && role) {
-            fetchSubmitted(userId, role)
+        if (token) {
+            fetchSubmitted(token, role)
         }else{
             navigate('/login')
           }
@@ -96,7 +100,7 @@ export default function Grade({userId, role}) {
     return (
         <div className='grade-container'>
             {answersItem}
-            <Grade_Modal userId={userId} role={role} contest_id={contest_id} contest_participant_id={contest_participant_id} />
+            <Grade_Modal token={token} role={role} contest_id={contest_id} contest_participant_id={contest_participant_id} />
         </div>
     );
 }

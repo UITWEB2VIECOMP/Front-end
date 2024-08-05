@@ -41,11 +41,10 @@ const Login = () => {
           const res = await axiosUrl.post('/api/auth/login', formData);
           console.log(res); // Debugging log
       
-          const { user_id, role } = res.data.data;
-          localStorage.setItem('user_id', user_id);
+          const { token, role } = res.data.data;
+          localStorage.setItem('token', token);
           localStorage.setItem('role', role);
-          localStorage.setItem('token', "token");
-      
+
           setErr('');
           setLoggedIn(true);
           navigate('/');

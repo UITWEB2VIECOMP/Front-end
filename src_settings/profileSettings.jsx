@@ -3,7 +3,7 @@ import './settings.css';
 import axiosUrl from '../config/AxiosConfig';
 import { useNavigate } from 'react-router-dom';
 
-export default function ProfileSettings({ role, userId }) {
+export default function ProfileSettings({ role, token }) {
     const [avatar, setAvatar] = useState('');
     const [avatarPreview, setAvatarPreview] = useState('');
     const [name, setName] = useState(role === 'student' ? { first_name: '', last_name: '' } : { corp_name: '' });
@@ -30,8 +30,7 @@ export default function ProfileSettings({ role, userId }) {
                 formData.append('file', avatar); 
                 payload = formData;
                 const headers = {
-                    user_id: userId,
-                    role: role,
+                    token: token,
                     ...(target === 'avatar' && { 'Content-Type': 'multipart/form-data' })
                 };
                 const res = await axiosUrl.post(`/api/users/change-${target}`, payload, { headers });
@@ -45,8 +44,7 @@ export default function ProfileSettings({ role, userId }) {
                     : { contact_info };
             }
             const headers = {
-                user_id: userId,
-                role: role,
+                token: token,
                 ...(target === 'avatar' && { 'Content-Type': 'multipart/form-data' })
             };
     
@@ -58,6 +56,10 @@ export default function ProfileSettings({ role, userId }) {
         } catch (err) {
             console.error('Change error: ', err);
             setErr(err.response?.data?.message || 'An error occurred');
+            if (err.response?.data?.message === "Token has expired") {
+                localStorage.removeItem('token');
+                navigate('/login');
+              }
         } finally {
             setLoading(false);
             navigate("/");

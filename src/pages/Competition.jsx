@@ -5,9 +5,9 @@ import Slider from '../components/Slider';
 
 export const Userinfo = createContext();
 
-const Competition = ({ role, userId }) => {
+const Competition = ({ role, token }) => {
   return (
-    <Userinfo.Provider value={{ role, userId }}>
+    <Userinfo.Provider value={{ role, token }}>
       <div className="comp-container">
         <div className="comp-content">
           {role === "student" ?(

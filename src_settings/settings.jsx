@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import './settings.css';
 
-export default function Settings({ userId, role }) {
+export default function Settings({ token, role }) {
     return (
         <div className="settings-container">
             <h1>Account Settings</h1>
