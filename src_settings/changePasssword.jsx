@@ -3,7 +3,7 @@ import './settings.css';
 import { useNavigate } from 'react-router-dom';
 import axiosUrl from '../config/AxiosConfig';
 
-export default function ChangePassword({userId, role}) {
+export default function ChangePassword({token, role}) {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -21,8 +21,7 @@ export default function ChangePassword({userId, role}) {
                 c_new_password: confirmPassword
             }
             const headers = {
-                user_id: userId,
-                role: role,
+                token: token,
             };
     
             const res = await axiosUrl.post(`/api/users/change-password`, payload, { headers });
@@ -33,10 +32,13 @@ export default function ChangePassword({userId, role}) {
         } catch (err) {
             console.error('Change error: ', err);
             setErr(err.response?.data?.message || 'An error occurred');
+            if (err.response?.data?.message === "Token has expired") {
+                localStorage.removeItem('token');
+                navigate('/login');
+            }
         } finally {
             setLoading(false);
             localStorage.removeItem('token');
-            localStorage.removeItem('user_id');
             localStorage.removeItem('role');
             navigate('/login');
         }

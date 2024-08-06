@@ -85,7 +85,7 @@ const QuestionForm = ({ questions, setQuestions }) => {
   );
 };
 
-const Modal = ({userId, role}) => {
+const Modal = ({token, role}) => {
   const [modal, setModal] = useState(false);
   const [contestName, setContestName] = useState()
   const [contestDescription, setContestDescription] = useState()
@@ -130,8 +130,7 @@ const Modal = ({userId, role}) => {
     try {
       const res = await axiosUrl.post(`/api/contest/add-contest`,payload,{
         headers:{
-          user_id: userId,
-          role: role
+          token: token,
         }
       })
       setLoading(false);
@@ -141,6 +140,10 @@ const Modal = ({userId, role}) => {
       console.error('Change error: ', error);
       setErr(error.response?.data?.message || 'An error occurred');
       setLoading(false);
+      if (error.response?.data?.message === "Token has expired") {
+        localStorage.removeItem('token');
+        navigate('/login');
+      }
     }
   }
   const submitAdd = ()=>{

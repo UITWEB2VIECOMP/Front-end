@@ -19,19 +19,18 @@ import Grade from './Grade';
 
 
 const Home = () => {
+  const [token, setToken] = useState(null);
   const [role, setRole] = useState(null);
-  const [id, setId] = useState(null);
   const [userInfo, setUserInfo] = useState({});
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
   //Fechuser function
-  const fetchUserData = async (id, role) => {
+  const fetchUserData = async (token, role) => {
     try {
           const res = await axiosUrl.get('/api/users/get-user', {
               headers: {
-                  user_id: id,
-                  role: role
+                  token: token,
               }
           });
 
@@ -50,19 +49,23 @@ const Home = () => {
       } catch (err) {
           console.error('Verification failed: ', err);
           setLoading(false); 
+          if (err.response?.data?.message === "Token has expired") {
+            localStorage.removeItem('token');
+            navigate('/login');
+          }
       }
   };
 
   useEffect(() => {
-    const storedRole = localStorage.getItem('role');
-    const storedId = localStorage.getItem('user_id');
-    if (!storedRole || !storedId) {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+
+    if (!token || !role) {
       navigate('/login');
     } else {
-      setRole(storedRole);
-      setId(storedId);
-
-    fetchUserData(storedId, storedRole);
+      setRole(role)
+      setToken(token);
+      fetchUserData(token, role);
     }
   }, [navigate]);
   if (loading) {
@@ -72,25 +75,25 @@ const Home = () => {
   return (
     
     <div className="home-container">
-      {role && id ? <Aside userInfo= {userInfo} role={role} /> : <div>Loading...</div>}
+      {token ? <Aside userInfo= {userInfo} token={token} role={role}/> : <div>Loading...</div>}
       <div className="home-content">
           <Routes>
-            <Route path='/' element={<H0me userId={id} userInfo={userInfo} role={role}></H0me>} ></Route>
-            <Route path='/profile' element={<Profile  userInfo= {userInfo}role={role}></Profile>}></Route>
-            <Route path='/your-contest' element={<MyContest  userId={id} role={role} />} />
-            <Route path='/manage-contest' element={<ManageContest userId={id} role={role}/>} />
+            <Route path='/' element={<H0me token={token} userInfo={userInfo} role={role}></H0me>} ></Route>
+            <Route path='/profile' element={<Profile  userInfo= {userInfo} role={role}></Profile>}></Route>
+            <Route path='/your-contest' element={<MyContest  token={token} role={role} />} />
+            <Route path='/manage-contest' element={<ManageContest token={token} role={role}/>} />
 
-            <Route  path='/competition' element={<Competition userId={id} role={role} ></Competition>}></Route>
-            <Route path='/settings' element={<Settings  userId={id} role={role}></Settings>}>
-            <Route index element={<ProfileSettings userId={id} role={role} />} />
-              <Route  path="profile" element={<ProfileSettings userId={id} role={role}  />} />
-              <Route path="password" element={<ChangePasssword userId={id} role={role} />} />
+            <Route  path='/competition' element={<Competition token={token} role={role} ></Competition>}></Route>
+            <Route path='/settings' element={<Settings token={token} role={role}></Settings>}>
+            <Route index element={<ProfileSettings token={token} role={role} />} />
+              <Route  path="profile" element={<ProfileSettings token={token} role={role}  />} />
+              <Route path="password" element={<ChangePasssword token={token} role={role} />} />
             </Route>
-            <Route path='/contest/:contest_id' element={<Contest userId={id} role={role}></Contest>}>
+            <Route path='/contest/:contest_id' element={<Contest token={token} role={role}></Contest>}>
             </Route>
-            <Route  path="/contest/:contest_id/modify" element={<ContestModify userId={id} role={role}  />} />
-            <Route  path="/contest/:contest_id/do-contest" element={<DoContest userId={id} role={role}  />} />
-            <Route path='/contest/:contest_id/submission/:contest_participant_id' element={<Grade userId={id} role={role} />} />
+            <Route  path="/contest/:contest_id/modify" element={<ContestModify token={token} role={role}  />} />
+            <Route  path="/contest/:contest_id/do-contest" element={<DoContest token={token} role={role}  />} />
+            <Route path='/contest/:contest_id/submission/:contest_participant_id' element={<Grade token={token} role={role} />} />
           </Routes > 
       </div>
     </div>

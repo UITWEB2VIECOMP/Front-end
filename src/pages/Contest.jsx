@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import axiosUrl from '../../config/AxiosConfig'
 import { format } from '`date-fns`';
 
-export default function Contest({ role, userId }) {
+export default function Contest({ role, token }) {
     const [err, setErr] = useState('');
     const { contest_id } = useParams();
     const [loading, setLoading] = useState(true);
@@ -13,12 +13,11 @@ export default function Contest({ role, userId }) {
     const [ishosted, sethosted] = useState();
     const [isSubmitted, setIsSubmitted]= useState();
     const navigate = useNavigate();
-    const fetchContest = async (id, role) => {
+    const fetchContest = async (token, role) => {
       try {
             const res = await axiosUrl.get(`/api/contest/get-contest/${contest_id}`, {
                 headers: {
-                    user_id: userId,
-                    role: role
+                    token: token,
                 }
             });
   
@@ -41,11 +40,20 @@ export default function Contest({ role, userId }) {
         } catch (err) {
             console.error('Verification failed: ', err);
             setLoading(false); 
-            navigate('/error')
+            if (err.response?.data?.message === "Token has expired") {
+                localStorage.removeItem('token');
+                navigate('/login');
+            }else{
+                navigate('/error')
+            }
         }
     };
     useEffect(() => {
-        fetchContest(userId, role);
+        if(!role || !token){
+            navigate('/login');
+        }else{
+            fetchContest(token, role);
+        }
       }, []);
       if (loading) {
           return <div>Loading...</div>;
@@ -54,15 +62,19 @@ export default function Contest({ role, userId }) {
         try {
             const res = await axiosUrl.post(`/api/contest/delete/${contest_id}`,{} ,{
                 headers:{
-                    user_id: userId,
-                    role: role,
+                    token: token,
                 }
             })   
             navigate('/')
         } catch (error) {
-            console.error('Verification failed: ', err);
+            console.error('Verification failed: ', error);
             setLoading(false); 
-            navigate('/error')
+            if (error.response?.data?.message === "Token has expired") {
+                localStorage.removeItem('token');
+                navigate('/login');
+            }else{
+                navigate('/error')
+            }
         }
     }
     const joinContest = async (e) => {
@@ -72,8 +84,7 @@ export default function Contest({ role, userId }) {
                 {}, 
                 {
                     headers: {
-                        user_id: userId,
-                        role: role
+                        token: token,
                     }
                 }
             );
@@ -81,7 +92,12 @@ export default function Contest({ role, userId }) {
         } catch (error) {
             console.error('Verification failed: ', error);
             setLoading(false);
-            navigate('/error');
+            if (error.response?.data?.message === "Token has expired") {
+                localStorage.removeItem('token');
+                navigate('/login');
+            }else{
+                navigate('/error')
+            }
         }
     };
     const getDate = ()=>{

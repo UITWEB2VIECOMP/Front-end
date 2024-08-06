@@ -6,7 +6,7 @@ import { MdOutlineManageHistory } from 'react-icons/md';
 import axiosUrl from '../../config/AxiosConfig';
 import '../styles/Aside.css';
 
-const Aside = ({ userInfo, role }) => {
+const Aside = ({ userInfo, token, role }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -24,7 +24,6 @@ const Aside = ({ userInfo, role }) => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        localStorage.removeItem('user_id');
         localStorage.removeItem('role');
         navigate('/login');
     };

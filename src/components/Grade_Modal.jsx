@@ -4,7 +4,7 @@ import '../styles/Grade_Modal.css'
 import { useNavigate } from 'react-router-dom';
 import axiosUrl from '../../config/AxiosConfig';
 
-const Grade_Modal = ({userId, role , contest_id, contest_participant_id}) => {
+const Grade_Modal = ({token, role , contest_id, contest_participant_id}) => {
   const [modal, setModal] = useState(false)
   const [grade, setGrade] = useState('');
   const [err, setErr] = useState('');
@@ -15,19 +15,21 @@ const Grade_Modal = ({userId, role , contest_id, contest_participant_id}) => {
       setLoading(true)
       const res = await axiosUrl.post(`/api/contest/grading`,{grade, contest_id,contest_participant_id} ,{
           headers: {
-              user_id: userId,
-              role: role,
+            token: token,
           },
       });
       console.log(res); 
 
       setErr('');
+      setLoading(false);
+      navigate(`/manage-contest`);
   } catch (error) {
       console.error('Change error: ', error);
       setErr(error.response?.data?.message || 'An error occurred');
-  }finally {
-      setLoading(false);
-      navigate(`/manage-contest`);
+      if (error.response?.data?.message === "Token has expired") {
+        localStorage.removeItem('token');
+        navigate('/login');
+      }
   }
   }
   const handleSubmit = () => {

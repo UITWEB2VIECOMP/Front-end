@@ -3,31 +3,36 @@ import '../styles/MyContest.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import axiosUrl from '../../config/AxiosConfig';
+import { data } from 'autoprefixer';
 
-const MyContest = ({ userId, role }) => {
+const MyContest = ({ token, role }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [myContestData, setMyContestData] = useState(); 
-  const fetchYourContestData = async (id, role) => {
+  const fetchYourContestData = async (token) => {
     try {
       const res = await axiosUrl.get(`/api/contest/get-your-contest`, {
         headers: {
-          user_id: id,
-          role: role,
+          token: token,
         },
       });
       setMyContestData(res.data.data);
     } catch (err) {
       console.error('Verification failed: ', err);
-      navigate('/error');
+      if (err.response?.data?.message === "Token has expired") {
+        localStorage.removeItem('token');
+        navigate('/login');
+      }else{
+        navigate('/error');
+      }
     } finally {
       setLoading(false); 
     }
   };
   useEffect(() => {
 
-    if (userId && role) {
-      fetchYourContestData(userId, role);
+    if (token && data) {
+      fetchYourContestData(token);
     }else{
       navigate('/login')
     }

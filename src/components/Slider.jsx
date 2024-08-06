@@ -12,19 +12,17 @@ import { Userinfo2 } from "../pages/Main";
 
 const Slider = ({ target, page }) => {
   const navigate = useNavigate();
-  const { role, userId } = page==="compe" ? useContext(Userinfo):useContext(Userinfo2)
+  const { role, token } = page==="compe" ? useContext(Userinfo):useContext(Userinfo2)
 
 
   const [contestData, setContestData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchContestData = async (id, role) => {
+  const fetchContestData = async (token) => {
     try {
-      console.log(id);
       const res = await axiosUrl.get(`/api/homepage/get-${target}`, {
         headers: {
-          user_id: id,
-          role: role,
+          token: token,
         },
       });
       setContestData(res.data.data);
@@ -33,16 +31,20 @@ const Slider = ({ target, page }) => {
     } catch (err) {
       console.error('Verification failed: ', err);
       setLoading(false);
+      if (err.response?.data?.message === "Token has expired") {
+        localStorage.removeItem('token');
+        navigate('/login');
+      }
     }
   };
 
   useEffect(() => {
-    if (!role || !userId) {
+    if (!role || !token) {
       navigate('/login');
     } else {
-      fetchContestData(userId, role);
+      fetchContestData(token);
     }
-  }, [role, userId, target, navigate]);
+  }, [role, token, target, navigate]);
 
   if (loading) {
     return <div>Loading...</div>;

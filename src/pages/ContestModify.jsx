@@ -8,7 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axiosUrl from '../../config/AxiosConfig';
 
 
-export default function ContestModify({ role, userId }) {
+export default function ContestModify({ role, token }) {
   const [err, setErr] = useState('');
   const [loading, setLoading] = useState(false);
   const { contest_id } = useParams();
@@ -52,12 +52,11 @@ export default function ContestModify({ role, userId }) {
             formData.append('file', img); 
             payload = formData;
             const headers = {
-                user_id: userId,
-                role: role,
+                token: token,
                 ...(target === 'image' && { 'Content-Type': 'multipart/form-data' })
             };
             const res = await axiosUrl.post(`/api/contest/change-${target}/${contest_id}`, payload, { headers });
-
+            console.log(res); 
         } else {
             if (target === 'name') {
                 payload = {contest_name:name}
@@ -70,20 +69,23 @@ export default function ContestModify({ role, userId }) {
                 payload = {contest_description: description };
               }
             }
+            const headers = {
+              token: token,
+            };
+  
+          const res = await axiosUrl.post(`/api/contest/change-${target}/${contest_id}`, payload, { headers });
+  
+          console.log(res); 
         }
-        const headers = {
-            user_id: userId,
-            role: role,
-        };
-
-        const res = await axiosUrl.post(`/api/contest/change-${target}/${contest_id}`, payload, { headers });
-
-        console.log(res); 
 
         setErr('');
     } catch (err) {
         console.error('Change error: ', err);
         setErr(err.response?.data?.message || 'An error occurred');
+        if (err.response?.data?.message === "Token has expired") {
+          localStorage.removeItem('token');
+          navigate('/login');
+        }
     } finally {
         setLoading(false);
         navigate(`/contest/${contest_id}`);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosUrl = axios.create({
-    baseURL: 'https://api-74ym.onrender.com',
+    baseURL: 'http://localhost:5001',
 });
 
 export default axiosUrl;

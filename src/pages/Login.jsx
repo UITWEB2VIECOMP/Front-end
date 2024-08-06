@@ -24,7 +24,8 @@ const Login = () => {
     useEffect(() => {
         const checkLoggedIn = () => {
             const token = localStorage.getItem('token');
-            if (token) {
+            const role = localStorage.getItem('role');
+            if (token && role) {
                 setLoggedIn(true);
                 navigate('/');
             }
@@ -41,11 +42,10 @@ const Login = () => {
           const res = await axiosUrl.post('/api/auth/login', formData);
           console.log(res); // Debugging log
       
-          const { user_id, role } = res.data.data;
-          localStorage.setItem('user_id', user_id);
+          const { token, role } = res.data.data;
+          localStorage.setItem('token', token);
           localStorage.setItem('role', role);
-          localStorage.setItem('token', "token");
-      
+
           setErr('');
           setLoggedIn(true);
           navigate('/');
