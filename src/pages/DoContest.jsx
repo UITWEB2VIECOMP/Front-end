@@ -50,7 +50,7 @@ export default function DoContest({ token, role }) {
             return acc;
         }, {});
         setAnswers(initialAnswers);
-    }, [contest_id, userId, role]);
+    }, [contest_id, role]);
 
     if (loading) {
         return <div>Loading...</div>;
