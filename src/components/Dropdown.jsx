@@ -21,7 +21,6 @@ const Dropdown = ({token, role}) => {
 
   const fetchManageData = async (token, role) => {
     try {
-      console.log(id);
       const res = await axiosUrl.get(`/api/contest/get-manage-info`, {
         headers: {
           token: token,
