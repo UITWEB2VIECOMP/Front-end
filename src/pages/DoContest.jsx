@@ -37,8 +37,11 @@ export default function DoContest({ token, role }) {
                 }
             }
         };
-
-        fetchQuestions();
+        if (token && role) {
+            fetchQuestions();
+        }else{
+            navigate('/login')
+        }
         const initialAnswers = questions.reduce((acc, question) => {
             acc[question.question_id] = {
                 type: question.question_type_id === 1 ? "multiple-choice" : question.question_type_id === 2 ? "essay" : "file", 

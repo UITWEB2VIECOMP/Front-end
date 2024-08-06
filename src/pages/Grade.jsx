@@ -35,7 +35,7 @@ export default function Grade({token, role}) {
               setLoading(false); 
             }
           };
-        if (token) {
+        if (token && role) {
             fetchSubmitted(token, role)
         }else{
             navigate('/login')

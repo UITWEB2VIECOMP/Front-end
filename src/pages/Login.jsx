@@ -24,7 +24,8 @@ const Login = () => {
     useEffect(() => {
         const checkLoggedIn = () => {
             const token = localStorage.getItem('token');
-            if (token) {
+            const role = localStorage.getItem('role');
+            if (token && role) {
                 setLoggedIn(true);
                 navigate('/');
             }

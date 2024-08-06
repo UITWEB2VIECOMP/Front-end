@@ -3,6 +3,7 @@ import '../styles/MyContest.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import axiosUrl from '../../config/AxiosConfig';
+import { data } from 'autoprefixer';
 
 const MyContest = ({ token, role }) => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const MyContest = ({ token, role }) => {
   };
   useEffect(() => {
 
-    if (token) {
+    if (token && data) {
       fetchYourContestData(token);
     }else{
       navigate('/login')

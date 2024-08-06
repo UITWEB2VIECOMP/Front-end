@@ -49,7 +49,11 @@ export default function Contest({ role, token }) {
         }
     };
     useEffect(() => {
-        fetchContest(token, role);
+        if(!role || !token){
+            navigate('/login');
+        }else{
+            fetchContest(token, role);
+        }
       }, []);
       if (loading) {
           return <div>Loading...</div>;

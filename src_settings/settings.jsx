@@ -1,8 +1,13 @@
-import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import './settings.css';
-
 export default function Settings({ token, role }) {
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (!role || !token) {
+          navigate('/login');
+        }
+      }, [role, token, navigate]);
     return (
         <div className="settings-container">
             <h1>Account Settings</h1>
