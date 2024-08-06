@@ -88,8 +88,8 @@ export default function Grade({token, role}) {
                     </div>
                 )}
                 {data.question_type_id === 3 && (
-                    <a href={data.file_path} className="download-link">
-                        Download
+                    <a href={data.file_path} className="download-link" target='_blank'>
+                        Essay here
                     </a>
                 )}
                 <hr />
