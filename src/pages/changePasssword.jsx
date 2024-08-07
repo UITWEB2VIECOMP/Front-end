@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './settings.css';
+import '../styles/settings.css'
 import { useNavigate } from 'react-router-dom';
-import axiosUrl from '../config/AxiosConfig';
+import axiosUrl from '../../config/AxiosConfig.js';
 
 export default function ChangePassword({token, role}) {
     const [oldPassword, setOldPassword] = useState('');

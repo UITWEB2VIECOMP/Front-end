@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import './settings.css';
-import axiosUrl from '../config/AxiosConfig';
+// import './settings.css';
+import '../styles/settings.css'
+import axiosUrl from '../../config/AxiosConfig.js';
 import { useNavigate } from 'react-router-dom';
 
 export default function ProfileSettings({ role, token }) {

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
-import './settings.css';
+import '../styles/settings.css'
 export default function Settings({ token, role }) {
     const navigate = useNavigate()
     useEffect(() => {
