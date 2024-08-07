@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { format } from '`date-fns`';
+import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import '../styles/profile.css'
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "../styles/Contest.css"
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axiosUrl from '../../config/AxiosConfig'
-import { format } from '`date-fns`';
+import { format } from 'date-fns';
 
 export default function Contest({ role, token }) {
     const [err, setErr] = useState('');
