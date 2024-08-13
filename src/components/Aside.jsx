@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaHome, FaSun, FaMoon, FaBars, FaBook } from 'react-icons/fa';
 import { CiLogout, CiTrophy, CiSettings } from 'react-icons/ci';
 import { MdOutlineManageHistory } from 'react-icons/md';
-import axiosUrl from '../../config/AxiosConfig';
+// import { DarkModeContext } from '../../context/darkmodecontext'
 import '../styles/Aside.css';
+import '../styles/Dark.css'
 
-const Aside = ({ userInfo, token, role }) => {
+const Aside = ({ userInfo, role }) => {
+
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [isDarkMode, setIsDarkMode] = useState(false);
 

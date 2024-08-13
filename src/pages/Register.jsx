@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axiosUrl from '../../config/AxiosConfig';
 import '../styles/Register.css'
 
 const Register = () => {
@@ -24,10 +24,6 @@ const Register = () => {
             [name]: value
         }));
     };
-
-    const axiosUrl = axios.create({
-        baseURL: 'https://api-74ym.onrender.com'
-    })
 
     const handleSubmit = async (e) => {
         e.preventDefault()
